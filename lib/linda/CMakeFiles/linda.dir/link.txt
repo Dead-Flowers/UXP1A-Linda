@@ -1,0 +1,2 @@
+/usr/bin/ar qc liblinda.a CMakeFiles/linda.dir/src/linda.cpp.o CMakeFiles/linda.dir/src/message.cpp.o
+/usr/bin/ranlib liblinda.a
