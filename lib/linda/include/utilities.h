@@ -5,12 +5,12 @@
 #include <random>
 #include <exception>
 
-key_t createQueueWithRandomKey(int* pMsgId) {
+key_t createQueueWithRandomKey(int flags, int* pMsgId = nullptr) {
     int msgId;
     key_t key;
     do {
         key = std::rand();
-        msgId = msgget(key == 0 ? 1 : key, IPC_CREAT | IPC_EXCL);
+        msgId = msgget(key == 0 ? 1 : key, flags);
     } while (msgId == -1 && errno == EEXIST);
 
     if (msgId == -1) {

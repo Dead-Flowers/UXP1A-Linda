@@ -1,1 +1,0 @@
-/usr/bin/c++ -g "CMakeFiles/lindaTestHost.dir/test-host/main.cpp.o" -o lindaTestHost  ../lib/linda/liblinda.a 

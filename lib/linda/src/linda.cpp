@@ -1,10 +1,11 @@
 #include "linda.h"
 #include "utilities.h"
-#include <signal.h>
+#include <csignal>
 #include <sys/msg.h>
 #include <optional>
 #include <memory>
 #include <utility>
+#include <unistd.h>
 
 void sigHandler(int signum) {
     closeProgram(signum);
@@ -22,6 +23,8 @@ std::optional<TupleItemPattern> getPattern(std::vector<TupleItemPattern> itemPat
 
 TupleSpace::TupleSpace() {
     TupleSpace::init();
+    _clientQueueId = _hostQueueId = 0;
+    _clientQueueKey = 0;
 }
 
 TupleSpace::~TupleSpace() {
@@ -36,7 +39,7 @@ void TupleSpace::open(key_t tupleHostKey) {
     if (_hostQueueId == -1) {
         throw std::exception(); //TODO: exceptions
     }
-    _clientQueueKey = createQueueWithRandomKey(&_clientQueueId);
+    _clientQueueKey = createQueueWithRandomKey(0666 | IPC_CREAT | IPC_EXCL,&_clientQueueId);
 }
 
 void TupleSpace::close(){
@@ -118,7 +121,7 @@ void TupleSpace::output(std::string tuple) {
 void TupleSpaceHost::init() {
     auto key = ftok(KET_FILE_PATH, PROJECT_ID);
 
-    mainQueueId = msgget(key, IPC_CREAT  );
+    mainQueueId = msgget(key, 0666 | IPC_CREAT  );
     auto err = std::strerror(errno);
     if(mainQueueId < 0)
         throw "pipe with this key exists"; //TODO: EXPRECTIONS
@@ -130,6 +133,7 @@ void TupleSpaceHost::runServer() {
     while(run) {
         auto req = TupleRequest{};
         if(auto res = msgrcv(mainQueueId, (void*)&req, sizeof(TupleRequest), 0, 0) == -1 ) {
+            auto err = std::strerror(errno);
             throw "problem with receiving a message" ; //TODO: EXPRECTIONS
         }
 
