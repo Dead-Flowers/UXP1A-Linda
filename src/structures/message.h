@@ -1,7 +1,3 @@
-//
-// Created by powerofdark on 22/05/22.
-//
-
 #ifndef LINDA_MESSAGE_H
 #define LINDA_MESSAGE_H
 #include <sys/ipc.h>
@@ -16,14 +12,14 @@ enum class MessageType : long {
 };
 
 struct TupleRequest {
-    MessageType messageType; // wymagane pole `long mtype`
-    key_t responseQueueKey; // klucz kolejki komunikatów serwer->klient
-    uint32_t requestId; // unikalny (w ramach klienta) id. zapytania
-    char tuple[MAX_TUPLE_LENGTH]; // krotka lub wzorzec krotki
+    MessageType messageType; // required filed `long mtype`
+    key_t responseQueueKey; // key of communicates queue server -> client
+    uint32_t requestId; // unique(for client) request id
+    char tuple[MAX_TUPLE_LENGTH]; // tuple or pattern of tuple 
 };
 
 struct TupleResponse {
-    MessageType messageType; // wymagane pole `long mtype`
+    MessageType messageType; // required filed `long mtype`
     uint32_t requestId;
     char tuple[MAX_TUPLE_LENGTH];
 };

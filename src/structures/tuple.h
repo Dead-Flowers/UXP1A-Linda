@@ -1,7 +1,3 @@
-//
-// Created by powerofdark on 22/05/22.
-//
-
 #ifndef LINDA_TUPLE_H
 #define LINDA_TUPLE_H
 #include <sys/ipc.h>
@@ -22,7 +18,7 @@ enum class TupleDataType {
 };
 
 enum class TupleOperator {
-    Equal, /* operator domyślny */
+    Equal, /* default operator */
     Less,
     LessEqual,
     Greater,
@@ -35,11 +31,11 @@ struct TupleItemPattern {
     TupleItem value;
 };
 
-// struktura reprezentująca oczekującą operację read/input
+// pending request for read/input
 struct PendingTupleRequest {
-    key_t responseQueueKey; // klucz kolejki komunikatów serwer->klient
-    uint32_t requestId; // unikalny (w ramach klienta) id. zapytania
-    std::vector<TupleItemPattern> itemPatterns; // wzorce elementów krotki
+    key_t responseQueueKey; // key of communicates queue server -> client
+    uint32_t requestId; // unique(for client) request id
+    std::vector<TupleItemPattern> itemPatterns;
 };
 
 struct TupleSpaceContainer {
