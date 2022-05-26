@@ -1,5 +1,5 @@
 
-#include "Patterns.h"
+#include "PatternsParser.h"
 
 using PatternParser = linda::modules::PatternParser;
 
@@ -89,7 +89,7 @@ std::optional<TupleOperator> PatternParser::tryParseOperator() {
     return tupleOperator;
 }
 
-std::optional<TupleItem> linda::modules::PatternParser::tryParseValue() {
+std::optional<TupleItem> PatternParser::tryParseValue() {
     TupleItem value;
     if (currentToken.type == TokenType::IntLiteral
         || currentToken.type == TokenType::FloatLiteral
