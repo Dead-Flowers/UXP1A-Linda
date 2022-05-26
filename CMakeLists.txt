@@ -3,6 +3,7 @@ project(linda)
 
 set(CMAKE_CXX_STANDARD 20)
 set(LINDA_INCLUDE "${PROJECT_SOURCE_DIR}/lib/linda/include")
+set(PARSER_INCLUDE "${PROJECT_SOURCE_DIR}/lib/parser/include")
 
 add_subdirectory (src)
 add_subdirectory (test)

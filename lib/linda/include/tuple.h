@@ -23,6 +23,7 @@ enum class TupleDataType {
 
 enum class TupleOperator {
     Equal, /* default operator */
+    NotEqual,
     Less,
     LessEqual,
     Greater,
