@@ -1,4 +1,4 @@
-#include "message.h"
+#include "linda/message.h"
 
 const char* MsgTypeToString(MessageType type) {
     switch (type) {
@@ -15,8 +15,13 @@ std::ostream& operator<< (std::ostream& os, const TupleRequest& req) {
 }
 
 std::ostream& operator<< (std::ostream& os, const TupleResponse& req) {
+
     os << "Type: " << MsgTypeToString(req.messageType)
-       << " requestId: " << req.requestId << " \n TUPLE: " << req.tuple;
+       << " requestId: " << req.requestId << " \n TUPLE: ";
+    for(auto c: req.tuple) {
+        os << c;
+    }
+    os << std::endl;
     return  os;
 }
 

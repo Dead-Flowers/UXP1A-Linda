@@ -1,4 +1,4 @@
-# Install script for directory: /home/daniell/dev/UXP1A-Linda/src
+# Install script for directory: /home/daniell/dev/UXP1A-Linda/lib/parser
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

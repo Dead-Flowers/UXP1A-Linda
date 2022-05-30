@@ -3,7 +3,7 @@
 
 lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: lib/linda/src/linda.cpp \
   /usr/include/stdc-predef.h \
-  lib/linda/include/linda.h \
+  lib/linda/include/linda/linda.h \
   /usr/include/c++/12.1.0/atomic \
   /usr/include/c++/12.1.0/bits/atomic_base.h \
   /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -230,7 +230,7 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: lib/linda/src/linda.cpp \
   /usr/include/bits/msq.h \
   /usr/include/bits/types/struct_msqid_ds.h \
   /usr/include/bits/types/struct_msqid64_ds.h \
-  lib/linda/include/tuple.h \
+  lib/linda/include/linda/tuple.h \
   /usr/include/c++/12.1.0/vector \
   /usr/include/c++/12.1.0/bits/stl_uninitialized.h \
   /usr/include/c++/12.1.0/bits/stl_vector.h \
@@ -240,7 +240,7 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: lib/linda/src/linda.cpp \
   /usr/include/c++/12.1.0/bits/enable_special_members.h \
   /usr/include/c++/12.1.0/bits/parse_numbers.h \
   /usr/include/c++/12.1.0/optional \
-  lib/linda/include/message.h \
+  lib/linda/include/linda/message.h \
   /usr/include/c++/12.1.0/iostream \
   /usr/include/c++/12.1.0/ostream \
   /usr/include/c++/12.1.0/ios \
@@ -282,7 +282,15 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: lib/linda/src/linda.cpp \
   /usr/include/c++/12.1.0/cstring \
   /usr/include/string.h \
   /usr/include/strings.h \
-  lib/linda/include/utilities.h \
+  lib/parser/include/parser/TupleParser.h \
+  lib/linda/include/linda/tuple.h \
+  lib/parser/include/parser/Lexer.h \
+  lib/parser/include/parser/Token.h \
+  lib/parser/include/parser/TokenType.h \
+  lib/parser/include/parser/StringReader.h \
+  lib/parser/include/parser/Lexer.h \
+  lib/parser/include/parser/PatternsParser.h \
+  lib/linda/include/linda/utilities.h \
   /usr/include/c++/12.1.0/random \
   /usr/include/c++/12.1.0/cmath \
   /usr/include/math.h \
@@ -336,7 +344,7 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: lib/linda/src/linda.cpp \
 
 lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
   /usr/include/stdc-predef.h \
-  lib/linda/include/message.h \
+  lib/linda/include/linda/message.h \
   /usr/include/sys/ipc.h \
   /usr/include/features.h \
   /usr/include/features-time64.h \
@@ -363,7 +371,7 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
   /usr/include/bits/wchar.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-uintn.h \
-  lib/linda/include/tuple.h \
+  lib/linda/include/linda/tuple.h \
   /usr/include/c++/12.1.0/vector \
   /usr/include/c++/12.1.0/bits/stl_algobase.h \
   /usr/include/c++/12.1.0/bits/functexcept.h \
@@ -551,8 +559,6 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
 
 /usr/include/c++/12.1.0/bits/allocated_ptr.h:
 
-/usr/include/c++/12.1.0/bits/unique_ptr.h:
-
 /usr/include/c++/12.1.0/bits/align.h:
 
 /usr/include/c++/12.1.0/pstl/execution_defs.h:
@@ -600,6 +606,16 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
 /usr/include/bits/libm-simd-decl-stubs.h:
 
 /usr/include/c++/12.1.0/random:
+
+lib/parser/include/parser/StringReader.h:
+
+lib/parser/include/parser/TokenType.h:
+
+/usr/include/c++/12.1.0/bits/unique_ptr.h:
+
+lib/parser/include/parser/Lexer.h:
+
+lib/parser/include/parser/TupleParser.h:
 
 /usr/include/string.h:
 
@@ -689,6 +705,8 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
 
 /usr/include/unistd.h:
 
+/usr/include/c++/12.1.0/bits/nested_exception.h:
+
 /usr/include/bits/math-vector.h:
 
 /usr/include/bits/uio_lim.h:
@@ -712,6 +730,8 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
 /usr/include/c++/12.1.0/bits/vector.tcc:
 
 /usr/include/bits/types/__mbstate_t.h:
+
+lib/parser/include/parser/PatternsParser.h:
 
 /usr/include/bits/time.h:
 
@@ -740,10 +760,6 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: lib/linda/src/message.cpp \
 /usr/include/bits/sigevent-consts.h:
 
 /usr/include/c++/12.1.0/ostream:
-
-/usr/include/c++/12.1.0/bits/nested_exception.h:
-
-lib/linda/include/message.h:
 
 /usr/include/syscall.h:
 
@@ -791,6 +807,10 @@ lib/linda/include/message.h:
 
 /usr/include/bits/setjmp.h:
 
+/usr/include/c++/12.1.0/bits/exception.h:
+
+/usr/include/bits/struct_mutex.h:
+
 /usr/include/c++/12.1.0/bits/stl_raw_storage_iter.h:
 
 /usr/include/bits/types/error_t.h:
@@ -815,6 +835,8 @@ lib/linda/include/message.h:
 
 /usr/include/c++/12.1.0/bits/charconv.h:
 
+lib/linda/include/linda/linda.h:
+
 /usr/include/c++/12.1.0/bits/shared_ptr_base.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stdint.h:
@@ -824,12 +846,6 @@ lib/linda/include/message.h:
 /usr/include/c++/12.1.0/bits/atomic_base.h:
 
 /usr/include/bits/types/time_t.h:
-
-/usr/include/c++/12.1.0/bits/memoryfwd.h:
-
-/usr/include/c++/12.1.0/type_traits:
-
-/usr/include/c++/12.1.0/bits/stl_bvector.h:
 
 /usr/include/bits/getopt_core.h:
 
@@ -847,23 +863,11 @@ lib/linda/include/message.h:
 
 /usr/include/linux/limits.h:
 
-/usr/include/c++/12.1.0/bits/exception.h:
-
-/usr/include/bits/struct_mutex.h:
-
-lib/linda/include/linda.h:
-
-/usr/include/bits/signum-generic.h:
-
 /usr/include/bits/types/locale_t.h:
 
 /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/gthr.h:
 
 /usr/include/bits/byteswap.h:
-
-/usr/include/bits/cpu-set.h:
-
-/usr/include/bits/typesizes.h:
 
 /usr/include/c++/12.1.0/bits/invoke.h:
 
@@ -874,6 +878,16 @@ lib/linda/include/linda.h:
 /usr/include/c++/12.1.0/bits/enable_special_members.h:
 
 /usr/include/c++/12.1.0/bits/streambuf.tcc:
+
+/usr/include/c++/12.1.0/bits/memoryfwd.h:
+
+/usr/include/c++/12.1.0/type_traits:
+
+/usr/include/c++/12.1.0/bits/stl_bvector.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/bits/cpu-set.h:
 
 /usr/include/c++/12.1.0/bits/stringfwd.h:
 
@@ -1017,10 +1031,6 @@ lib/linda/src/linda.cpp:
 
 /usr/include/c++/12.1.0/bits/allocator.h:
 
-/usr/include/c++/12.1.0/string:
-
-/usr/include/c++/12.1.0/bits/new_allocator.h:
-
 /usr/include/c++/12.1.0/system_error:
 
 /usr/include/c++/12.1.0/bits/localefwd.h:
@@ -1038,6 +1048,8 @@ lib/linda/src/linda.cpp:
 /usr/include/sys/cdefs.h:
 
 /usr/include/c++/12.1.0/bits/stl_function.h:
+
+lib/parser/include/parser/Token.h:
 
 /usr/include/c++/12.1.0/bits/stl_pair.h:
 
@@ -1085,8 +1097,6 @@ lib/linda/src/message.cpp:
 
 /usr/include/bits/uintn-identity.h:
 
-/usr/include/bits/select.h:
-
 /usr/include/bits/ipctypes.h:
 
 /usr/include/bits/types/sigset_t.h:
@@ -1105,8 +1115,6 @@ lib/linda/src/message.cpp:
 
 /usr/include/bits/types/__fpos64_t.h:
 
-lib/linda/include/utilities.h:
-
 /usr/include/c++/12.1.0/bits/locale_facets.h:
 
 /usr/include/c++/12.1.0/tr1/ell_integral.tcc:
@@ -1120,6 +1128,8 @@ lib/linda/include/utilities.h:
 /usr/include/bits/ss_flags.h:
 
 /usr/include/c++/12.1.0/streambuf:
+
+/usr/include/bits/signum-generic.h:
 
 /usr/include/sys/syscall.h:
 
@@ -1159,6 +1169,8 @@ lib/linda/include/utilities.h:
 
 /usr/include/bits/sigthread.h:
 
+lib/linda/include/linda/utilities.h:
+
 /usr/include/c++/12.1.0/bits/std_function.h:
 
 /usr/include/sys/ipc.h:
@@ -1179,7 +1191,9 @@ lib/linda/include/utilities.h:
 
 /usr/include/bits/types/struct_msqid64_ds.h:
 
-lib/linda/include/tuple.h:
+/usr/include/bits/select.h:
+
+lib/linda/include/linda/tuple.h:
 
 /usr/include/c++/12.1.0/bits/stl_vector.h:
 
@@ -1190,6 +1204,12 @@ lib/linda/include/tuple.h:
 /usr/include/bits/libc-header-start.h:
 
 /usr/include/c++/12.1.0/ios:
+
+/usr/include/c++/12.1.0/string:
+
+/usr/include/c++/12.1.0/bits/new_allocator.h:
+
+lib/linda/include/linda/message.h:
 
 /usr/include/c++/12.1.0/bits/ios_base.h:
 

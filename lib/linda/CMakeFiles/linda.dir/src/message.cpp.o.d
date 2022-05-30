@@ -1,7 +1,7 @@
 lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /home/daniell/dev/UXP1A-Linda/lib/linda/src/message.cpp \
  /usr/include/stdc-predef.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/message.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/message.h \
  /usr/include/sys/ipc.h /usr/include/features.h \
  /usr/include/features-time64.h /usr/include/bits/wordsize.h \
  /usr/include/bits/timesize.h /usr/include/sys/cdefs.h \
@@ -18,7 +18,7 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
  /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
  /usr/include/bits/stdint-uintn.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/tuple.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
  /usr/include/c++/12.1.0/vector \
  /usr/include/c++/12.1.0/bits/stl_algobase.h \
  /usr/include/c++/12.1.0/bits/functexcept.h \

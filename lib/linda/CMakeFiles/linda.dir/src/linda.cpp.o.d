@@ -1,7 +1,7 @@
 lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: \
  /home/daniell/dev/UXP1A-Linda/lib/linda/src/linda.cpp \
  /usr/include/stdc-predef.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/linda.h \
  /usr/include/c++/12.1.0/atomic \
  /usr/include/c++/12.1.0/bits/atomic_base.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -156,7 +156,7 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: \
  /usr/include/bits/ipc-perm.h /usr/include/sys/msg.h \
  /usr/include/bits/msq.h /usr/include/bits/types/struct_msqid_ds.h \
  /usr/include/bits/types/struct_msqid64_ds.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/tuple.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
  /usr/include/c++/12.1.0/vector \
  /usr/include/c++/12.1.0/bits/stl_uninitialized.h \
  /usr/include/c++/12.1.0/bits/stl_vector.h \
@@ -165,7 +165,7 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: \
  /usr/include/c++/12.1.0/bits/enable_special_members.h \
  /usr/include/c++/12.1.0/bits/parse_numbers.h \
  /usr/include/c++/12.1.0/optional \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/message.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/message.h \
  /usr/include/c++/12.1.0/iostream /usr/include/c++/12.1.0/ostream \
  /usr/include/c++/12.1.0/ios /usr/include/c++/12.1.0/bits/ios_base.h \
  /usr/include/c++/12.1.0/bits/locale_classes.h \
@@ -200,7 +200,15 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: \
  /usr/include/c++/12.1.0/bits/uniform_int_dist.h \
  /usr/include/c++/12.1.0/cstring /usr/include/string.h \
  /usr/include/strings.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/utilities.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/TupleParser.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Lexer.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Token.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/TokenType.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/StringReader.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Lexer.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/PatternsParser.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/utilities.h \
  /usr/include/c++/12.1.0/random /usr/include/c++/12.1.0/cmath \
  /usr/include/math.h /usr/include/bits/math-vector.h \
  /usr/include/bits/libm-simd-decl-stubs.h \

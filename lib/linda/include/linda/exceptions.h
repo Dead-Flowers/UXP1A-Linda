@@ -1,0 +1,5 @@
+#ifndef LINDA_EXCEPTIONS_H
+#define LINDA_EXCEPTIONS_H
+
+
+#endif

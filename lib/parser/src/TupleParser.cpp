@@ -1,11 +1,11 @@
-#include "TupleParser.h"
+#include "parser/TupleParser.h"
 
 using TupleParser = linda::modules::TupleParser;
 
 
 TupleParser::TupleParser(const Lexer &lexer) : lexer(lexer) {}
 
-std::vector<TupleItem> TupleParser::parse() {
+Tuple TupleParser::parse() {
     std::vector<TupleItem> tuples;
     currentToken = lexer.nextToken();
     if (!checkAndConsume(TokenType::ParenthOpen)) {

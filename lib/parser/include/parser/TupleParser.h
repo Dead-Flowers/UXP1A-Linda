@@ -2,7 +2,7 @@
 #ifndef LINDA_TUPLEPARSER_H
 #define LINDA_TUPLEPARSER_H
 
-#include "tuple.h"
+#include "linda/tuple.h"
 #include "Lexer.h"
 
 namespace linda::modules {
@@ -11,7 +11,7 @@ namespace linda::modules {
         TupleParser(const Lexer& lexer);
         ~TupleParser() = default;
 
-        std::vector<TupleItem> parse();
+        Tuple parse();
 
     private:
         Lexer lexer;

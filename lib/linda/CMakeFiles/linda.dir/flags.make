@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/daniell/dev/UXP1A-Linda/lib/linda/include
+CXX_INCLUDES = -I/home/daniell/dev/UXP1A-Linda/lib/linda/include -I/home/daniell/dev/UXP1A-Linda/lib/parser/include
 
-CXX_FLAGS = -g -std=gnu++20
+CXX_FLAGS = -std=gnu++20
 

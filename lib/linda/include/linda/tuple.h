@@ -36,6 +36,7 @@ struct TupleItemPattern {
     TupleItem value;
 };
 
+
 // pending request for read/input
 struct PendingTupleRequest {
     key_t responseQueueKey; // key of communicates queue server -> client

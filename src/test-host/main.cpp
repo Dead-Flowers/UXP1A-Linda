@@ -1,4 +1,4 @@
-#include "linda.h"
+#include "linda/linda.h"
 
 int main() {
     TupleSpaceHost host;
