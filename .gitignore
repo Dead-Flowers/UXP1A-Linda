@@ -114,3 +114,6 @@ fabric.properties
 *.exe
 *.out
 *.app
+
+.cache/
+build/
