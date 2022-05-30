@@ -12,12 +12,14 @@
 #include <optional>
 #include <iostream>
 #include <cstring>
+#include <memory>
 #include "parser/TupleParser.h"
 #include "parser/Lexer.h"
 #include "parser/PatternsParser.h"
+#include "spdlog/logger.h"
 
-#define KET_FILE_PATH "./key.k"
-#define PROJECT_ID 2137
+#define DEFAULT_KEY_FILE_PATH "./key.k"
+#define DEFAULT_PROJECT_ID 2137
 
 class TupleSpace {
 public:
@@ -30,6 +32,7 @@ public:
     std::optional<Tuple> read(std::string tupleTemplate, int timeout);
     void output(std::string tuple);
 private:
+    std::shared_ptr<spdlog::logger> _logger;
     int _hostQueueId;
     int _clientQueueId;
     key_t _clientQueueKey;
@@ -53,11 +56,10 @@ void sigHandler(int signum);
 
 class TupleSpaceHost {
 public:
-    //TODO:  constructor, starting server
     TupleSpaceHost();
     ~TupleSpaceHost();
 
-    void init();
+    void init(const char* keyPath, int projectId);
     void runServer();
     void close();
 private:
@@ -66,15 +68,17 @@ private:
     void processOutput(TupleRequest);
     void insertTuple(Tuple);
     void notifyPendingRequests(Tuple tuple);
-    std::optional<Tuple> searchSpace(std::vector<TupleItemPattern>, bool);
-    void insertPendingRequest(uint32_t, key_t, std::vector<TupleItemPattern>);
+    std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
+    void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
     bool compareValue(TupleItem, TupleItemPattern); //TODO: consider removing out of class
-    Tuple parseTuple(); //TODO: implement
-    std::vector<TupleItemPattern> parsePattern(); //TODO: implement
+    Tuple parseTuple(const char*); //TODO: implement
+    std::vector<TupleItemPattern> parsePattern(const char*); //TODO: implement
     void printSpace();
+    bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
     TupleSpaceContainer space;
     int mainQueueId;
     int run;
+    std::shared_ptr<spdlog::logger> _logger;
 };
 
 

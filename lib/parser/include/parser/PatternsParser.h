@@ -22,7 +22,7 @@ namespace linda::modules {
         std::optional<TupleOperator> tryParseOperator();
         std::optional<TupleItem> tryParseValue();
         bool checkAndConsume(TokenType type);
-        bool checkCombination(TupleDataType dataType, TupleOperator op, const TupleItem& value);
+        bool checkCombination(TupleDataType dataType, TupleOperator op, const std::optional<TupleItem>& value);
     };
 }
 

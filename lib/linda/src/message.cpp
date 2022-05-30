@@ -1,4 +1,8 @@
+#include <sstream>
 #include "linda/message.h"
+
+template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
+template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 
 const char* MsgTypeToString(MessageType type) {
     switch (type) {
@@ -25,22 +29,21 @@ std::ostream& operator<< (std::ostream& os, const TupleResponse& req) {
     return  os;
 }
 
-std::string TupleToString(Tuple tuple) {
-    std::string str = "";
+std::string TupleToString(const Tuple& tuple) {
+    std::ostringstream ss;
+    ss << "(";
     for(auto item: tuple) {
-        switch (static_cast<TupleDataType>(item.index())) {
-            case TupleDataType::Integer : {
-                str += std::get<int64_t>(item);
-            }
-            case TupleDataType::Float : {
-                str += std::get<float>(item);
-            }
-            case TupleDataType::String : {
-                str += std::get<std::string>(item);
-            }
-        }
-        str += ",";
-    }
+        std::visit(overloaded {
+                [&](const auto value) { ss << value; },
+        }, item);
 
-    return str;
+        ss << ",";
+    }
+    if (!tuple.empty()) {
+        //
+        ss.seekp(-1, std::ios_base::cur);
+    }
+    ss << ")";
+
+    return ss.str();
 }

@@ -12,7 +12,7 @@ const int MAX_TUPLE_LENGTH = 1024;
 using TupleItem = std::variant<int64_t, float, std::string>;
 using Tuple = std::vector<TupleItem>;
 
-std::string TupleToString(Tuple);
+std::string TupleToString(const Tuple& tuple);
 
 // This has to have the same order as variant because of variant index() usage
 enum class TupleDataType {
@@ -33,7 +33,7 @@ enum class TupleOperator {
 struct TupleItemPattern {
     TupleDataType type;
     TupleOperator op;
-    TupleItem value;
+    std::optional<TupleItem> value;
 };
 
 
@@ -48,5 +48,7 @@ struct TupleSpaceContainer {
     std::vector<Tuple> data;
     std::vector<PendingTupleRequest> pendingRequests;
 };
+
+using TuplePattern = std::vector<TupleItemPattern>;
 
 #endif //LINDA_TUPLE_H

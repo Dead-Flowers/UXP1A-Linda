@@ -23,6 +23,7 @@ key_t createQueueWithRandomKey(int flags, int* pMsgId = nullptr) {
 
 bool writeStringToCharArray(std::string str, char* pDest, size_t size) {
     auto sizeWritten = str.copy(pDest, size);
+    pDest[std::min(size - 1, sizeWritten)] = 0;
     return sizeWritten == str.length();
 }
 
@@ -40,8 +41,11 @@ bool compareTuple(Comparable left, TupleOperator op, Comparable right) {
 
 template <class T>
 bool compareTupleToPattern(TupleItem item, TupleItemPattern pattern) {
+    if (!pattern.value.has_value()) {
+        return true; // in case the operand is a wildcard
+    }
     auto value = std::get<T>(item);
-    auto patternValue = std::get<T>(pattern.value);
+    auto patternValue = std::get<T>(pattern.value.value());
     return compareTuple(value, pattern.op, patternValue);
 }
 

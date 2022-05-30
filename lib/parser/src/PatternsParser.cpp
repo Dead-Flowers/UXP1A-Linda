@@ -49,11 +49,9 @@ std::optional<TupleItemPattern> PatternParser::tryParseTuplePattern() {
     }
     auto conditionValue = tryParseValue();
     if (conditionValue == std::nullopt) {
-        if (currentToken.type == TokenType::Asterisk) {
-            pattern.value = "*";
-            // TODO: handle empty condition
+        if (currentToken.type != TokenType::Asterisk) {
+            // TODO: error missing condition
         }
-        // TODO: error missing condition
     } else {
         pattern.value = conditionValue.value();
     }
@@ -110,7 +108,15 @@ bool PatternParser::checkAndConsume(TokenType type) {
     }
 }
 
-bool PatternParser::checkCombination(TupleDataType dataType, TupleOperator op, const TupleItem& value) {
+bool PatternParser::checkCombination(TupleDataType dataType, TupleOperator op, const std::optional<TupleItem>& optionalValue) {
+    if (!optionalValue.has_value()){
+        if (op != TupleOperator::Equal) {
+            // TODO: exceptions
+            throw "invalid operator for wildcard value";
+        }
+        return true;
+    }
+    auto& value = optionalValue.value();
     if (dataType == TupleDataType::String && !holds_alternative<std::string>(value)) {
         return false;
     }
