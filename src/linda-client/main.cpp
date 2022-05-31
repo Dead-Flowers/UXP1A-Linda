@@ -1,14 +1,16 @@
 #include <iostream>
 #include <iterator>
-#include <sstream>
 #include <string>
 #include <vector>
 
 #include <argparse/argparse.hpp>
+#include <spdlog/spdlog.h>
 
 #include "linda/linda.h"
 
 int main(int argc, char **argv) {
+    spdlog::set_level(spdlog::level::level_enum::err);
+
     auto parser = argparse::ArgumentParser("linda-client");
     parser.add_description(
         "Executes a given Linda command on the global tuple space.");
@@ -18,10 +20,10 @@ int main(int argc, char **argv) {
         .remaining();
     parser.add_argument("-t", "--timeout")
         .help("number of milliseconds to wait before returning an error")
-        .scan<'u', uint64_t>()
+        .scan<'i', int>()
         .default_value(10);
     parser.add_epilog(
-        "\nactions:\n"
+        "\nAvailable actions:\n"
         "`input` \tconsumes the first tuple that matches template provided in "
         "<data>\n"
         "`read`  \treads (without consuming) the first tuple that matches "
@@ -42,9 +44,9 @@ int main(int argc, char **argv) {
     auto data = data_stream.str();
 
     if (action == "input") {
-        client.input(data, parser.get<uint64_t>("timeout"));
+        std::cout << TupleToString(client.input(data, parser.get<int>("timeout")).value()) << std::endl;
     } else if (action == "read") {
-        client.read(data, parser.get<uint64_t>("timeout"));
+        std::cout << TupleToString(client.read(data, parser.get<int>("timeout")).value()) << std::endl;
     } else if (action == "output") {
         client.output(data);
     } else {
