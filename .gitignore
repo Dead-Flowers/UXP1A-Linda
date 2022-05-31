@@ -117,3 +117,7 @@ fabric.properties
 
 .cache/
 build/
+Testing/
+**/CMakeFiles/
+
+**/*.k
