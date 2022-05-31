@@ -126,6 +126,7 @@ Token Lexer::nextToken() {
         currentSign = this->reader.getNextCharacter();
         if (currentSign == '=') {
             token.type = TokenType::NotEqualOp;
+            currentSign = this->reader.getNextCharacter();
             return token;
         }
         throw LexerParsingException("Unrecognized operator");
