@@ -14,18 +14,12 @@ void sigHandler(int signum) {
     closeProgram(signum);
 };
 
-std::optional<TupleItemPattern> getPattern(std::vector<TupleItemPattern> itemPatterns, TupleDataType patternType) {
-    for (auto pattern: itemPatterns) {
-        if(pattern.type == patternType)
-            return pattern;
-    }
-
-    return std::nullopt;
+void clientSigHandler(int signum) {
+    spdlog::trace("Client received signal: {0}", signum);
 }
 
-
 TupleSpace::TupleSpace() {
-    _logger = spdlog::stdout_color_mt("TupleSpace");
+    _logger = getLogger("TupleSpace");
     TupleSpace::init();
     _clientQueueId = _hostQueueId = 0;
     _clientQueueKey = 0;
@@ -51,8 +45,9 @@ void TupleSpace::close(){
         return;
     _logger->info("Closing");
     if (_clientQueueId) {
-        auto ret = msgctl(_clientQueueId, IPC_RMID, nullptr);
-        // TODO:: should we ignore ret?
+        if (msgctl(_clientQueueId, IPC_RMID, nullptr) < 0) {
+            _logger->warn("Error while closing client queue ({0})", std::strerror(errno));
+        }
         _clientQueueId = 0;
         _hostQueueId = 0;
     }
@@ -67,9 +62,10 @@ std::optional<Tuple> TupleSpace::read(std::string tupleTemplate, int timeout) {
 }
 
 std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int timeout, bool pop) {
+    if (tupleTemplate.size() > 1024) {
+        throw LindaException("Too long tuple string");
+    }
     uint32_t reqId = std::rand();
-
-    TupleResponse response = {};
     TupleRequest request = {
             pop ? MessageType::Input : MessageType::Read,
             _clientQueueKey,
@@ -77,39 +73,18 @@ std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int tim
     };
     writeStringToCharArray(std::move(tupleTemplate), request.tuple, sizeof(request.tuple));
 
-    int result;
-    if ((result = msgsnd(_hostQueueId, (void*)&request, sizeof(request), 0)) < 0) {
+    if (msgsnd(_hostQueueId, (void*)&request, sizeof(request), 0) < 0) {
         throw LindaSyscallException(errno);
     }
-    // wait for response
-    bool isExpectedResponse;
-    do {
-        alarm(timeout);
-        if ((result = msgrcv(_clientQueueId, (void *) &response, sizeof(response),
-                             static_cast<long>(MessageType::Input), 0)) < 0) {
-            auto saved_errno = errno;
-            alarm(0);
-            if (saved_errno == EINTR)
-                return std::nullopt;
 
-            throw LindaSyscallException(saved_errno);
-        }
-        isExpectedResponse = response.requestId == reqId;
-        if (!isExpectedResponse) {
-            std::cout << "Received unexpected response: expected "
-                      << reqId << ", got " << response.requestId << std::endl;
-        }
-    } while (response.requestId != reqId);
-    alarm(0);
+    auto optionalResponse = waitForResponse(reqId, timeout);
+    if (optionalResponse.has_value()){
+        auto lexer = linda::modules::Lexer(optionalResponse.value().tuple);
+        auto parser = linda::modules::TupleParser(lexer);
+        return parser.parse();
+    }
 
-    std::cout << "Received tuple: ";
-    std::cout.write(response.tuple, (ssize_t) strlen(response.tuple));
-    std::cout << std::endl;
-
-    auto lexer = linda::modules::Lexer(response.tuple);
-    auto parser = linda::modules::TupleParser(lexer);
-
-    return parser.parse();
+    return std::nullopt;
 }
 
 void TupleSpace::output(std::string tuple) {
@@ -122,15 +97,46 @@ void TupleSpace::output(std::string tuple) {
     writeStringToCharArray(std::move(tuple), request.tuple, sizeof(request.tuple));
 
     int result;
-    if ((result = msgsnd(_hostQueueId, (void*)&request, sizeof(request), 0)) != 0) {
+    if ((result = msgsnd(_hostQueueId, (void*)&request, sizeof(request), 0)) < 0) {
         throw LindaSyscallException(errno);
     }
+
+    // catch any error or get acknowledgement
+    waitForResponse(reqId, 0);
+}
+
+std::optional<TupleResponse> TupleSpace::waitForResponse(uint32_t requestId, int timeout) {
+    TupleResponse response{};
+    int result;
+    bool isExpectedResponse;
+
+    do {
+        alarm(timeout);
+        if ((result = msgrcv(_clientQueueId, (void *) &response, sizeof(response),0, 0)) < 0) {
+            auto saved_errno = errno;
+            alarm(0);
+            if (saved_errno == EINTR)
+                return std::nullopt;
+
+            throw LindaSyscallException(saved_errno);
+        }
+        isExpectedResponse = response.requestId == requestId;
+        if (!isExpectedResponse) {
+            _logger->warn("Received unexpected response: expected #{0}, got #{1}", requestId, response.requestId);
+        }
+    } while (response.requestId != requestId);
+    alarm(0);
+
+    if (response.messageType == MessageType::Error) {
+        throw LindaException(response.tuple);
+    }
+    return std::make_optional(response);
 }
 
 
 void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectID) {
     auto key_file_path = DEFAULT_KEY_FILE_PATH;
-    if(inputKeyFile != "") {
+    if (inputKeyFile) {
         key_file_path = inputKeyFile;
     }
 
@@ -141,18 +147,25 @@ void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectID) {
 
     auto key = ftok(key_file_path, proj_id);
 
-    mainQueueId = msgget(key, 0666 | IPC_CREAT  );
-    auto err = std::strerror(errno);
-    if(mainQueueId < 0)
+    if((mainQueueId = msgget(key, 0666 | IPC_CREAT)) < 0)
         throw LindaSyscallException(errno);
 
+}
+
+bool TupleSpaceHost::trySendResponse(const key_t responseQueueKey, const TupleResponse& tupleResponse) {
+    int msgQueueId;
+    if ((msgQueueId = msgget(responseQueueKey, 0)) < 0) {
+        return false;
+    }
+    auto result = msgsnd(msgQueueId, (void *) &tupleResponse, sizeof(TupleResponse), 0);
+    return result == 0;
 }
 
 void TupleSpaceHost::runServer() {
     run = true;
     while(run) {
         auto req = TupleRequest{};
-        if(auto res = msgrcv(mainQueueId, (void*)&req, sizeof(TupleRequest), 0, 0) == -1 ) {
+        if(msgrcv(mainQueueId, (void*)&req, sizeof(TupleRequest), 0, 0) < 0) {
             throw LindaSyscallException(errno);
         }
 
@@ -162,27 +175,27 @@ void TupleSpaceHost::runServer() {
         auto response = this->processRequest(req);
 
         if (response.has_value()) {
+            response->requestId = req.requestId;
             spdlog::info("Immediately fulfilled request #{0}", req.requestId);
 
-            auto responseQueueId = msgget(req.responseQueueKey, 0);
-
-            if (responseQueueId == -1 || msgsnd(responseQueueId, (void *) &response, sizeof(TupleResponse), 0) < 0) {
+            if (!trySendResponse(req.responseQueueKey, response.value())) {
                 spdlog::warn("Error while sending response to #{0}: {1}", req.requestId, std::strerror(errno));
             }
-
         }
 
     }
 }
 
 void TupleSpaceHost::close() {
+    if (_closed.test_and_set())
+        return;
     run = false;
     //TODO: ignore res ?
     auto res = msgctl(mainQueueId,IPC_RMID,NULL);
 }
 
 TupleSpaceHost::TupleSpaceHost() {
-    _logger = spdlog::stdout_color_mt("TupleSpaceHost");
+    _logger = getLogger("TupleSpaceHost");
     _logger->set_level(spdlog::level::debug);
     closeProgram = [this](int signum){this->close();};
     auto res = std::signal(SIGINT, sigHandler);
@@ -198,14 +211,29 @@ std::optional<TupleResponse> TupleSpaceHost::processRequest(TupleRequest request
     switch (request.messageType) {
         case MessageType::Read: return processReadOrInput(request, false);
         case MessageType::Input: return processReadOrInput(request, true);
-        case MessageType::Output: {processOutput(request); return std::nullopt;}
+        case MessageType::Output: return processOutput(request);
+        case MessageType::Error:
+        {
+            response.messageType = MessageType::Error;
+            writeStringToCharArray("Bad request message type", response.tuple, sizeof(response.tuple));
+            break;
+        }
     }
 
     return response;
 }
 
 std::optional<TupleResponse> TupleSpaceHost::processReadOrInput(TupleRequest request, bool pop) {
+    auto response = TupleResponse();
+    response.requestId = request.requestId;
+
     auto patterns = this->parsePattern(request.tuple);
+
+    if (patterns.size() > 15) {
+        response.messageType = MessageType::Error;
+        writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
+        return response;
+    }
 
     auto tuple = this->searchSpace(patterns, pop);
     if (!tuple.has_value()) {
@@ -213,21 +241,29 @@ std::optional<TupleResponse> TupleSpaceHost::processReadOrInput(TupleRequest req
         return std::nullopt;
     }
 
-    auto response = TupleResponse();
-    response.requestId = request.requestId;
     response.messageType = pop ? MessageType::Input : MessageType::Read;
 
     writeStringToCharArray(TupleToString(tuple.value()), response.tuple, sizeof(response.tuple));
     return response;
 }
 
-void TupleSpaceHost::processOutput(TupleRequest request) {
+std::optional<TupleResponse> TupleSpaceHost::processOutput(TupleRequest request) {
+    auto response = TupleResponse();
+    response.requestId = request.requestId;
+    response.messageType = MessageType::Output;
+
     auto tuple = this->parseTuple(request.tuple);
+
+    if (tuple.size() > 15) {
+        response.messageType = MessageType::Error;
+        writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
+        return response;
+    }
 
     this->insertTuple(tuple);
 
     this->notifyPendingRequests(tuple);
-    this->printSpace();
+    return response;
 }
 
 Tuple TupleSpaceHost::parseTuple(const char* tuple) {
@@ -258,14 +294,14 @@ void TupleSpaceHost::insertPendingRequest(uint32_t requestId, key_t responseQueu
 }
 
 bool TupleSpaceHost::patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple) {
-    for(auto item: tuple) {
-        auto pat = getPattern(pattern, static_cast<TupleDataType>(item.index()));
-        if (!pat.has_value()) {
+    if (tuple.size() != pattern.size())
+        return false;
+
+    for(int i = 0; i < tuple.size(); i++) {
+        auto& tupleItem = tuple[i];
+        auto& patternItem = pattern[i];
+        if (!compareValue(tupleItem, patternItem))
             return false;
-        }
-        if(!compareValue(item, pat.value())) {
-            return false;
-        }
     }
 
     return true;
@@ -307,7 +343,7 @@ bool TupleSpaceHost::compareValue(TupleItem item, TupleItemPattern pattern) {
         }
     }
 
-void TupleSpaceHost::notifyPendingRequests(Tuple tuple) {
+void TupleSpaceHost::notifyPendingRequests(const Tuple& tuple) {
     _logger->debug("Notifying pending requests");
     for(auto iter = space.pendingRequests.begin(); iter != space.pendingRequests.end(); iter++) {
         if(this->patternMatchesTuple(iter->itemPatterns, tuple)) {
@@ -316,35 +352,19 @@ void TupleSpaceHost::notifyPendingRequests(Tuple tuple) {
             response.requestId = iter->requestId;
             writeStringToCharArray(TupleToString(tuple), response.tuple, sizeof(response.tuple));
 
-            if (msgsnd(iter->responseQueueKey, (void *) &response, sizeof(TupleResponse), 0) == 0) {
-                // success, stop matching if popped
-                if (iter->pop){
-                    *iter = space.pendingRequests.back();
-                    space.pendingRequests.pop_back();
-                    return;
-                }
-            } else {
-                throw LindaSyscallException(errno);
+            if(!trySendResponse(iter->responseQueueKey, response)) {
+                spdlog::warn("Error while notifying/sending response to #{0}: {1}", iter->requestId, std::strerror(errno));
+                continue;
+            }
+            // success, stop matching if popped
+            if (iter->pop){
+                *iter = space.pendingRequests.back();
+                space.pendingRequests.pop_back();
+                return;
             }
         }
     }
 
-}
-
-void TupleSpaceHost::printSpace() {
-    std::cout << "SPACE: " << std::endl;
-    for(auto t: space.data) {
-        std::cout << "Tuple: ";
-        for (auto i: t) {
-            switch (i.index()) {
-                case 0: { std::cout << std::get<int64_t>(i); break;}
-                case 1: { std::cout << std::get<float>(i); break;}
-                case 2: { std::cout << std::get<std::string>(i); break;}
-            }
-            std::cout << " , ";
-        }
-        std::cout << std::endl;
-    }
 }
 
 bool TupleSpaceHost::contains(const TuplePattern& tuplePattern) {
@@ -358,6 +378,7 @@ int TupleSpaceHost::spaceSize() {
 
 void TupleSpaceHost::reset() {
     space.data.clear();
+    space.pendingRequests.clear();
 }
 
 

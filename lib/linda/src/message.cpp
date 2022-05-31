@@ -41,7 +41,7 @@ std::string TupleToString(const Tuple& tuple) {
         ss << ",";
     }
     if (!tuple.empty()) {
-        //
+        // trim comma
         ss.seekp(-1, std::ios_base::cur);
     }
     ss << ")";

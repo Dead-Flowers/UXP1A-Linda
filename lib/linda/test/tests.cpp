@@ -8,7 +8,7 @@ static std::function<void()> runServer;
 
 class TestService {
 public:
-    TestService();
+    TestService(int projectId);
     ~TestService();
     void closeTest();
     TuplePattern parsePattern(const char* pattern);
@@ -24,13 +24,13 @@ void *threadFunc(void *ptr) {
 };
 
 
-TestService::TestService() : client(), host(){
-    std::ofstream f {"test.k"};
+TestService::TestService(int projectId) : client(), host(){
+    std::ofstream f {"/tmp/test.k"};
     f.close();
 
-    this->host.init(this->fileName.c_str(), 2137);
+    this->host.init(this->fileName.c_str(), projectId);
 
-    key_t key = ftok(this->fileName.c_str(), 2137);
+    key_t key = ftok(this->fileName.c_str(), projectId);
     this->client.open(key);
 
     runServer = [this](){this->host.runServer();};
@@ -61,9 +61,10 @@ TestService::~TestService() {
 }
 
 TEST_SUITE("TEST") {
-    TestService service;
+    TestService service(123);
 
     TEST_CASE("equal on types") {
+        std::cout << "start1";
         service.host.reset();
         service.client.output("(123, 456.789, \"unix\")");
         service.client.output("(420, 69.789, \"test\")");
@@ -73,9 +74,12 @@ TEST_SUITE("TEST") {
         sleep(1);
         CHECK(service.host.spaceSize() == 5);
         CHECK(service.host.contains(service.parsePattern("(integer:123, float:>456, string:\"unix\")")));
+        std::cout << "end1";
+
     }
 
     TEST_CASE("test read") {
+        std::cout << "start2";
         service.host.reset();
         service.client.output("(123, 456.789, \"unix\")");
         service.client.output("(420, 69.789, \"test\")");
@@ -84,12 +88,14 @@ TEST_SUITE("TEST") {
         service.client.output("(124, 69.789, \"unixx\")");
         sleep(1);
         CHECK(service.host.spaceSize() == 5);
-        auto t = service.client.read("(integer:123, float:>456, string:\"unix\")", 3);
+        auto t = service.client.read("(integer:123, float:>456.0, string:\"unix\")", 300);
         CHECK(service.host.spaceSize() == 5);
         CHECK(t.has_value());
         auto b = t.value() == service.parseTuple("(123, 456.789, \"unix\")");
         CHECK(b);
         CHECK(service.host.contains(service.parsePattern("(integer:123, float:>456, string:\"unix\")")));
+        std::cout << "end2";
+
     }
 
     TEST_CASE("test input") {
@@ -110,7 +116,11 @@ TEST_SUITE("TEST") {
     }
 
 
-
+    TEST_CASE("too big tuple") {
+        service.host.reset();
+        service.client.output("(123, 456.789, \"unix\")");
+        CHECK(true);
+    }
 
 
 

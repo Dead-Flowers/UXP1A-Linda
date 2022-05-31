@@ -4,6 +4,8 @@
 #include <sys/msg.h>
 #include <random>
 #include <exception>
+#include "spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/spdlog.h"
 
 key_t createQueueWithRandomKey(int flags, int* pMsgId = nullptr) {
     int msgId;
@@ -47,6 +49,11 @@ bool compareTupleToPattern(TupleItem item, TupleItemPattern pattern) {
     auto value = std::get<T>(item);
     auto patternValue = std::get<T>(pattern.value.value());
     return compareTuple(value, pattern.op, patternValue);
+}
+
+std::shared_ptr<spdlog::logger> getLogger(const std::string& name) {
+    auto logger = spdlog::get(name);
+    return logger == nullptr ? spdlog::stdout_color_mt(name) : logger;
 }
 
 #endif

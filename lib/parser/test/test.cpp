@@ -1,13 +1,24 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
-int factorial(int number) { return number <= 1 ? number : factorial(number - 1) * number; }
-
-TEST_CASE("testing the factorial function") {
-CHECK(factorial(1) == 1);
-CHECK(factorial(2) == 2);
-CHECK(factorial(3) == 6);
-CHECK(factorial(10) == 3628800);
+#include "parser/Lexer.h"
+#include "parser/TupleParser.h"
+#include "parser/PatternsParser.h"
 
 
+using Lexer = linda::modules::Lexer;
+using TupleParser = linda::modules::TupleParser;
+using PatternParser = linda::modules::PatternParser;
 
+TEST_CASE("Test parsing tuple with multiple elements") {
+
+    auto tuple = "(123, 69.789, \"unixx\")";
+    Lexer lexer(tuple);
+    TupleParser p(lexer);
+    auto res = p.parse();
+
+    CHECK(res.size() == 3);
+}
+
+TEST_CASE("Test parsing multiple patterns without asterisks") {
+    auto patternInput = "(integer:>0, float:*, string:\"abc\")";
 }

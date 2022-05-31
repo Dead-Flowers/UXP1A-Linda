@@ -1,4 +1,5 @@
 #include "parser/TupleParser.h"
+#include "parser/exceptions.h"
 
 using TupleParser = linda::modules::TupleParser;
 
@@ -9,7 +10,7 @@ Tuple TupleParser::parse() {
     std::vector<TupleItem> tuples;
     currentToken = lexer.nextToken();
     if (!checkAndConsume(TokenType::ParenthOpen)) {
-        // TODO: error missing opening parenth
+        throw TupleParsingException("Missing opening parenthesis");
     }
     auto tuple = tryParseTupleItem();
     if (tuple == std::nullopt) {
@@ -19,12 +20,12 @@ Tuple TupleParser::parse() {
     while(checkAndConsume(TokenType::Comma)) {
         tuple = tryParseTupleItem();
         if (tuple == std::nullopt) {
-            // TODO: error missing tuple definition
+            throw TupleParsingException("Missing tuple definition");
         }
         tuples.push_back(tuple.value());
     }
     if (!checkAndConsume(TokenType::ParenthClose)) {
-        // TODO: error missing closing parenth
+        throw TupleParsingException("Missing closing parenthesis");
     }
     return tuples;
 }

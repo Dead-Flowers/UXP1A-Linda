@@ -1,5 +1,6 @@
 
 #include "parser/PatternsParser.h"
+#include "parser/exceptions.h"
 
 using PatternParser = linda::modules::PatternParser;
 
@@ -7,7 +8,7 @@ std::vector<TupleItemPattern> PatternParser::parse() {
     std::vector<TupleItemPattern> patterns;
     currentToken = lexer.nextToken();
     if (!checkAndConsume(TokenType::ParenthOpen)) {
-        // TODO: error missing opening parenth
+        throw PatternParsingException("Missing opening parenthesis");
     }
     auto tuplePattern = tryParseTuplePattern();
     if (tuplePattern == std::nullopt) {
@@ -17,15 +18,14 @@ std::vector<TupleItemPattern> PatternParser::parse() {
     while (checkAndConsume(TokenType::Comma)) {
         tuplePattern = tryParseTuplePattern();
         if (tuplePattern == std::nullopt) {
-            // TODO: error missing pattern definition
+            throw PatternParsingException("Missing pattern definition");
         }
         patterns.push_back(tuplePattern.value());
     }
     if (!checkAndConsume(TokenType::ParenthClose)) {
-        // TODO; error missing closing parenth
+        throw PatternParsingException("Missing closing parenthesis");
     }
     return patterns;
-
 }
 
 PatternParser::PatternParser(const Lexer &lexer) : lexer(lexer) {}
@@ -39,7 +39,7 @@ std::optional<TupleItemPattern> PatternParser::tryParseTuplePattern() {
         pattern.type = dataType.value();
     }
     if (!checkAndConsume(TokenType::Colon)) {
-        // TODO; error missing colon
+        throw PatternParsingException("Missing colon");
     }
     auto tupleOperator = tryParseOperator();
     if (tupleOperator == std::nullopt) {
@@ -50,10 +50,10 @@ std::optional<TupleItemPattern> PatternParser::tryParseTuplePattern() {
     auto conditionValue = tryParseValue();
     if (conditionValue == std::nullopt) {
         if (currentToken.type != TokenType::Asterisk) {
-            // TODO: error missing condition
+            throw PatternParsingException("Missing condition");
         } else {
             if(!checkAndConsume(TokenType::Asterisk)) {
-                //TODO: ERROR
+                throw PatternParsingException("Missing asterisk");
             }
         }
     } else {
@@ -64,7 +64,7 @@ std::optional<TupleItemPattern> PatternParser::tryParseTuplePattern() {
         pattern.value = (float)get<int64_t>(conditionValue.value());
     }
     if (!checkCombination(pattern.type, pattern.op, pattern.value)) {
-        // TODO: error
+        throw PatternParsingException("Invalid pattern type and value combination");
     }
     return pattern;
 }
@@ -116,8 +116,7 @@ bool PatternParser::checkAndConsume(TokenType type) {
 bool PatternParser::checkCombination(TupleDataType dataType, TupleOperator op, const std::optional<TupleItem>& optionalValue) {
     if (!optionalValue.has_value()){
         if (op != TupleOperator::Equal) {
-            // TODO: exceptions
-            throw "invalid operator for wildcard value";
+            throw PatternParsingException("Invalid operator for wildcard value");
         }
         return true;
     }

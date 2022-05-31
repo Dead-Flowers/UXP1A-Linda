@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cmath>
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "parser/exceptions.h"
 
 using Lexer = linda::modules::Lexer;
 namespace utils = linda::modules::utils;
@@ -20,7 +21,7 @@ Token Lexer::nextToken() {
         currentSign = this->reader.getNextCharacter();
     }
 
-    if (this->reader.hasFinished()) {
+    if (currentSign == (char)-1) {
         token.type = TokenType ::ETX;
         return token;
     }
@@ -31,7 +32,7 @@ Token Lexer::nextToken() {
 
         while(currentSign != '\"') {
             if (currentSign == (char)-1) {
-                // TODO: error
+                throw LexerParsingException("Unexpected end of text");
             }
             buffer.push_back(currentSign);
             currentSign = this->reader.getNextCharacter();
@@ -78,7 +79,7 @@ Token Lexer::nextToken() {
         else if (buffer == "float") token.type = TokenType::FloatType;
         else if (buffer == "string") token.type = TokenType::StringType;
         else {
-            // TODO; error
+            throw LexerParsingException("Unrecognized data type");
         }
         token.value = buffer;
         return token;
@@ -114,7 +115,7 @@ Token Lexer::nextToken() {
         if (firstSign == '<') token.type = TokenType::LessOp;
         else if (firstSign == '>') token.type = TokenType::GreaterOp;
         else {
-            // TODO: error
+            throw LexerParsingException("Unrecognized operator");
         }
         return token;
     } else if (currentSign == '*') {
@@ -127,8 +128,8 @@ Token Lexer::nextToken() {
             token.type = TokenType::NotEqualOp;
             return token;
         }
-        // TODO: error
+        throw LexerParsingException("Unrecognized operator");
     } else {
-        // TODO: error
+        throw LexerParsingException("Unrecognized character");
     }
 }

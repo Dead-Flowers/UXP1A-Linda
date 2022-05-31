@@ -66,6 +66,10 @@ atlassian-ide-plugin.xml
 # Cursive Clojure plugin
 .idea/replstate.xml
 
+**/*.cmake
+CMakeCache.txt
+.idea/**
+
 # SonarLint plugin
 .idea/sonarlint/
 

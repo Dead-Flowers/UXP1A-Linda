@@ -21,6 +21,13 @@
 #define DEFAULT_KEY_FILE_PATH "./key.k"
 #define DEFAULT_PROJECT_ID 2137
 
+#define MAX_TUPLE_LEN 15
+#define TOO_LONG_TUPLE_ERROR "too long tuple"
+
+
+void clientSigHandler(int signum);
+
+
 class TupleSpace {
 public:
     TupleSpace();
@@ -38,13 +45,16 @@ private:
     key_t _clientQueueKey;
     std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 
+    std::optional<TupleResponse> waitForResponse(uint32_t requestId, int timeout);
+
     std::optional<Tuple> requestTuple(std::string tupleTemplate, int timeout, bool pop);
+
 
     inline static std::atomic_flag LindaInitialized = ATOMIC_FLAG_INIT;
     static void init() {
         if (LindaInitialized.test_and_set())
             return;
-        signal(SIGALRM, SIG_IGN);
+        signal(SIGALRM, clientSigHandler);
         std::srand(time(nullptr));
     }
 };
@@ -62,16 +72,16 @@ public:
     void init(const char* keyPath, int projectId);
     void runServer();
     void close();
-    void printSpace();
     int spaceSize();
     bool contains(const TuplePattern& tuplePattern);
     void reset();
 private:
     std::optional<TupleResponse> processRequest(TupleRequest);
     std::optional<TupleResponse> processReadOrInput(TupleRequest, bool pop);
-    void processOutput(TupleRequest);
+    std::optional<TupleResponse> processOutput(TupleRequest);
+    bool trySendResponse(key_t responseQueueKey, const TupleResponse& tupleResponse);
     void insertTuple(Tuple);
-    void notifyPendingRequests(Tuple tuple);
+    void notifyPendingRequests(const Tuple& tuple);
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
     void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
     bool compareValue(TupleItem, TupleItemPattern); //TODO: consider removing out of class
@@ -82,6 +92,7 @@ private:
     int mainQueueId;
     int run;
     std::shared_ptr<spdlog::logger> _logger;
+    std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 };
 
 
