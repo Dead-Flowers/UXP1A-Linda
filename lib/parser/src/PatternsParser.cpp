@@ -51,11 +51,16 @@ std::optional<TupleItemPattern> PatternParser::tryParseTuplePattern() {
     if (conditionValue == std::nullopt) {
         if (currentToken.type != TokenType::Asterisk) {
             // TODO: error missing condition
+        } else {
+            if(!checkAndConsume(TokenType::Asterisk)) {
+                //TODO: ERROR
+            }
         }
     } else {
         pattern.value = conditionValue.value();
     }
-    if (dataType.value() == TupleDataType::Float && std::holds_alternative<int64_t>(conditionValue.value())) {
+
+    if (conditionValue.has_value() && dataType.value() == TupleDataType::Float && std::holds_alternative<int64_t>(conditionValue.value())) {
         pattern.value = (float)get<int64_t>(conditionValue.value());
     }
     if (!checkCombination(pattern.type, pattern.op, pattern.value)) {

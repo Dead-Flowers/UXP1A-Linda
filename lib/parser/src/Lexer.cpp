@@ -4,6 +4,7 @@
 #include <cctype>
 #include <algorithm>
 #include <cmath>
+#include "spdlog/sinks/stdout_color_sinks.h"
 
 using Lexer = linda::modules::Lexer;
 namespace utils = linda::modules::utils;

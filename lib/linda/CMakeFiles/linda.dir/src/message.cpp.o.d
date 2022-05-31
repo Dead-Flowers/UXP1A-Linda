@@ -1,35 +1,39 @@
 lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /home/daniell/dev/UXP1A-Linda/lib/linda/src/message.cpp \
- /usr/include/stdc-predef.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/message.h \
- /usr/include/sys/ipc.h /usr/include/features.h \
- /usr/include/features-time64.h /usr/include/bits/wordsize.h \
- /usr/include/bits/timesize.h /usr/include/sys/cdefs.h \
- /usr/include/bits/long-double.h /usr/include/gnu/stubs.h \
- /usr/include/gnu/stubs-64.h /usr/include/bits/ipctypes.h \
- /usr/include/bits/ipc.h /usr/include/bits/types.h \
- /usr/include/bits/typesizes.h /usr/include/bits/time64.h \
- /usr/include/bits/ipc-perm.h /usr/include/c++/12.1.0/cstdint \
+ /usr/include/stdc-predef.h /usr/include/c++/12.1.0/sstream \
+ /usr/include/c++/12.1.0/istream /usr/include/c++/12.1.0/ios \
+ /usr/include/c++/12.1.0/iosfwd \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/os_defines.h \
+ /usr/include/features.h /usr/include/features-time64.h \
+ /usr/include/bits/wordsize.h /usr/include/bits/timesize.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/long-double.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/cpu_defines.h \
  /usr/include/c++/12.1.0/pstl/pstl_config.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stdint.h \
- /usr/include/stdint.h /usr/include/bits/libc-header-start.h \
- /usr/include/bits/wchar.h /usr/include/bits/stdint-intn.h \
- /usr/include/bits/stdint-uintn.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
- /usr/include/c++/12.1.0/vector \
- /usr/include/c++/12.1.0/bits/stl_algobase.h \
- /usr/include/c++/12.1.0/bits/functexcept.h \
+ /usr/include/c++/12.1.0/bits/stringfwd.h \
+ /usr/include/c++/12.1.0/bits/memoryfwd.h \
+ /usr/include/c++/12.1.0/bits/postypes.h /usr/include/c++/12.1.0/cwchar \
+ /usr/include/wchar.h /usr/include/bits/libc-header-start.h \
+ /usr/include/bits/floatn.h /usr/include/bits/floatn-common.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stddef.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stdarg.h \
+ /usr/include/bits/wchar.h /usr/include/bits/types/wint_t.h \
+ /usr/include/bits/types/mbstate_t.h \
+ /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
+ /usr/include/bits/types/FILE.h /usr/include/bits/types/locale_t.h \
+ /usr/include/bits/types/__locale_t.h /usr/include/c++/12.1.0/exception \
+ /usr/include/c++/12.1.0/bits/exception.h \
+ /usr/include/c++/12.1.0/bits/exception_ptr.h \
  /usr/include/c++/12.1.0/bits/exception_defines.h \
- /usr/include/c++/12.1.0/bits/cpp_type_traits.h \
- /usr/include/c++/12.1.0/ext/type_traits.h \
- /usr/include/c++/12.1.0/ext/numeric_traits.h \
- /usr/include/c++/12.1.0/bits/stl_pair.h \
- /usr/include/c++/12.1.0/type_traits /usr/include/c++/12.1.0/bits/move.h \
- /usr/include/c++/12.1.0/bits/utility.h /usr/include/c++/12.1.0/compare \
- /usr/include/c++/12.1.0/concepts \
+ /usr/include/c++/12.1.0/bits/cxxabi_init_exception.h \
+ /usr/include/c++/12.1.0/typeinfo \
+ /usr/include/c++/12.1.0/bits/hash_bytes.h /usr/include/c++/12.1.0/new \
+ /usr/include/c++/12.1.0/bits/move.h /usr/include/c++/12.1.0/type_traits \
+ /usr/include/c++/12.1.0/bits/nested_exception.h \
+ /usr/include/c++/12.1.0/bits/char_traits.h \
+ /usr/include/c++/12.1.0/compare /usr/include/c++/12.1.0/concepts \
+ /usr/include/c++/12.1.0/bits/stl_construct.h \
  /usr/include/c++/12.1.0/bits/stl_iterator_base_types.h \
  /usr/include/c++/12.1.0/bits/iterator_concepts.h \
  /usr/include/c++/12.1.0/bits/ptr_traits.h \
@@ -37,51 +41,17 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /usr/include/c++/12.1.0/bits/stl_iterator_base_funcs.h \
  /usr/include/c++/12.1.0/bits/concept_check.h \
  /usr/include/c++/12.1.0/debug/assertions.h \
- /usr/include/c++/12.1.0/bits/stl_iterator.h /usr/include/c++/12.1.0/new \
- /usr/include/c++/12.1.0/bits/exception.h \
- /usr/include/c++/12.1.0/bits/stl_construct.h \
- /usr/include/c++/12.1.0/debug/debug.h \
- /usr/include/c++/12.1.0/bits/predefined_ops.h \
- /usr/include/c++/12.1.0/bits/allocator.h \
- /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/c++allocator.h \
- /usr/include/c++/12.1.0/bits/new_allocator.h \
- /usr/include/c++/12.1.0/bits/memoryfwd.h \
- /usr/include/c++/12.1.0/bits/stl_uninitialized.h \
- /usr/include/c++/12.1.0/ext/alloc_traits.h \
- /usr/include/c++/12.1.0/bits/alloc_traits.h \
- /usr/include/c++/12.1.0/bits/stl_vector.h \
- /usr/include/c++/12.1.0/initializer_list \
- /usr/include/c++/12.1.0/bits/stl_bvector.h \
- /usr/include/c++/12.1.0/bits/functional_hash.h \
- /usr/include/c++/12.1.0/bits/hash_bytes.h \
- /usr/include/c++/12.1.0/bits/refwrap.h \
- /usr/include/c++/12.1.0/bits/invoke.h \
- /usr/include/c++/12.1.0/bits/stl_function.h \
- /usr/include/c++/12.1.0/backward/binders.h \
- /usr/include/c++/12.1.0/bits/range_access.h \
- /usr/include/c++/12.1.0/bits/vector.tcc /usr/include/c++/12.1.0/variant \
- /usr/include/c++/12.1.0/bits/enable_special_members.h \
- /usr/include/c++/12.1.0/bits/parse_numbers.h \
- /usr/include/c++/12.1.0/string /usr/include/c++/12.1.0/bits/stringfwd.h \
- /usr/include/c++/12.1.0/bits/char_traits.h \
- /usr/include/c++/12.1.0/bits/postypes.h /usr/include/c++/12.1.0/cwchar \
- /usr/include/wchar.h /usr/include/bits/floatn.h \
- /usr/include/bits/floatn-common.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stddef.h \
- /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stdarg.h \
- /usr/include/bits/types/wint_t.h /usr/include/bits/types/mbstate_t.h \
- /usr/include/bits/types/__mbstate_t.h /usr/include/bits/types/__FILE.h \
- /usr/include/bits/types/FILE.h /usr/include/bits/types/locale_t.h \
- /usr/include/bits/types/__locale_t.h \
+ /usr/include/c++/12.1.0/cstdint \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/12.1.0/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/types.h \
+ /usr/include/bits/typesizes.h /usr/include/bits/time64.h \
+ /usr/include/bits/stdint-intn.h /usr/include/bits/stdint-uintn.h \
  /usr/include/c++/12.1.0/bits/localefwd.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/c++locale.h \
  /usr/include/c++/12.1.0/clocale /usr/include/locale.h \
- /usr/include/bits/locale.h /usr/include/c++/12.1.0/iosfwd \
- /usr/include/c++/12.1.0/cctype /usr/include/ctype.h \
- /usr/include/bits/endian.h /usr/include/bits/endianness.h \
- /usr/include/c++/12.1.0/bits/ostream_insert.h \
- /usr/include/c++/12.1.0/bits/cxxabi_forced.h \
- /usr/include/c++/12.1.0/bits/basic_string.h \
+ /usr/include/bits/locale.h /usr/include/c++/12.1.0/cctype \
+ /usr/include/ctype.h /usr/include/bits/endian.h \
+ /usr/include/bits/endianness.h /usr/include/c++/12.1.0/bits/ios_base.h \
  /usr/include/c++/12.1.0/ext/atomicity.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/gthr.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/gthr-default.h \
@@ -102,7 +72,34 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /usr/include/bits/types/struct___jmp_buf_tag.h \
  /usr/include/bits/pthread_stack_min-dynamic.h \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/atomic_word.h \
- /usr/include/sys/single_threaded.h /usr/include/c++/12.1.0/string_view \
+ /usr/include/sys/single_threaded.h \
+ /usr/include/c++/12.1.0/bits/locale_classes.h \
+ /usr/include/c++/12.1.0/string /usr/include/c++/12.1.0/bits/allocator.h \
+ /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/c++allocator.h \
+ /usr/include/c++/12.1.0/bits/new_allocator.h \
+ /usr/include/c++/12.1.0/bits/functexcept.h \
+ /usr/include/c++/12.1.0/bits/cpp_type_traits.h \
+ /usr/include/c++/12.1.0/bits/ostream_insert.h \
+ /usr/include/c++/12.1.0/bits/cxxabi_forced.h \
+ /usr/include/c++/12.1.0/bits/stl_iterator.h \
+ /usr/include/c++/12.1.0/ext/type_traits.h \
+ /usr/include/c++/12.1.0/bits/stl_function.h \
+ /usr/include/c++/12.1.0/backward/binders.h \
+ /usr/include/c++/12.1.0/ext/numeric_traits.h \
+ /usr/include/c++/12.1.0/bits/stl_algobase.h \
+ /usr/include/c++/12.1.0/bits/stl_pair.h \
+ /usr/include/c++/12.1.0/bits/utility.h \
+ /usr/include/c++/12.1.0/debug/debug.h \
+ /usr/include/c++/12.1.0/bits/predefined_ops.h \
+ /usr/include/c++/12.1.0/bits/refwrap.h \
+ /usr/include/c++/12.1.0/bits/invoke.h \
+ /usr/include/c++/12.1.0/bits/range_access.h \
+ /usr/include/c++/12.1.0/initializer_list \
+ /usr/include/c++/12.1.0/bits/basic_string.h \
+ /usr/include/c++/12.1.0/ext/alloc_traits.h \
+ /usr/include/c++/12.1.0/bits/alloc_traits.h \
+ /usr/include/c++/12.1.0/string_view \
+ /usr/include/c++/12.1.0/bits/functional_hash.h \
  /usr/include/c++/12.1.0/bits/ranges_base.h \
  /usr/include/c++/12.1.0/bits/max_size_type.h \
  /usr/include/c++/12.1.0/numbers \
@@ -126,14 +123,6 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /usr/include/bits/types/error_t.h \
  /usr/include/c++/12.1.0/bits/charconv.h \
  /usr/include/c++/12.1.0/bits/basic_string.tcc \
- /usr/include/c++/12.1.0/optional /usr/include/c++/12.1.0/exception \
- /usr/include/c++/12.1.0/bits/exception_ptr.h \
- /usr/include/c++/12.1.0/bits/cxxabi_init_exception.h \
- /usr/include/c++/12.1.0/typeinfo \
- /usr/include/c++/12.1.0/bits/nested_exception.h \
- /usr/include/c++/12.1.0/iostream /usr/include/c++/12.1.0/ostream \
- /usr/include/c++/12.1.0/ios /usr/include/c++/12.1.0/bits/ios_base.h \
- /usr/include/c++/12.1.0/bits/locale_classes.h \
  /usr/include/c++/12.1.0/bits/locale_classes.tcc \
  /usr/include/c++/12.1.0/system_error \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/error_constants.h \
@@ -148,5 +137,18 @@ lib/linda/CMakeFiles/linda.dir/src/message.cpp.o: \
  /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/ctype_inline.h \
  /usr/include/c++/12.1.0/bits/locale_facets.tcc \
  /usr/include/c++/12.1.0/bits/basic_ios.tcc \
- /usr/include/c++/12.1.0/bits/ostream.tcc /usr/include/c++/12.1.0/istream \
- /usr/include/c++/12.1.0/bits/istream.tcc
+ /usr/include/c++/12.1.0/ostream /usr/include/c++/12.1.0/bits/ostream.tcc \
+ /usr/include/c++/12.1.0/bits/istream.tcc \
+ /usr/include/c++/12.1.0/bits/sstream.tcc \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/message.h \
+ /usr/include/sys/ipc.h /usr/include/bits/ipctypes.h \
+ /usr/include/bits/ipc.h /usr/include/bits/ipc-perm.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
+ /usr/include/c++/12.1.0/vector \
+ /usr/include/c++/12.1.0/bits/stl_uninitialized.h \
+ /usr/include/c++/12.1.0/bits/stl_vector.h \
+ /usr/include/c++/12.1.0/bits/stl_bvector.h \
+ /usr/include/c++/12.1.0/bits/vector.tcc /usr/include/c++/12.1.0/variant \
+ /usr/include/c++/12.1.0/bits/enable_special_members.h \
+ /usr/include/c++/12.1.0/bits/parse_numbers.h \
+ /usr/include/c++/12.1.0/optional /usr/include/c++/12.1.0/iostream

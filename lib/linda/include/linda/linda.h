@@ -62,6 +62,10 @@ public:
     void init(const char* keyPath, int projectId);
     void runServer();
     void close();
+    void printSpace();
+    int spaceSize();
+    bool contains(const TuplePattern& tuplePattern);
+    void reset();
 private:
     std::optional<TupleResponse> processRequest(TupleRequest);
     std::optional<TupleResponse> processReadOrInput(TupleRequest, bool pop);
@@ -73,7 +77,6 @@ private:
     bool compareValue(TupleItem, TupleItemPattern); //TODO: consider removing out of class
     Tuple parseTuple(const char*); //TODO: implement
     std::vector<TupleItemPattern> parsePattern(const char*); //TODO: implement
-    void printSpace();
     bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
     TupleSpaceContainer space;
     int mainQueueId;

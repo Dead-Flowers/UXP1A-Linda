@@ -7,9 +7,10 @@
 
 
 enum class MessageType : long {
-    Input = 0x00,
-    Output = 0x01,
-    Read = 0x02,
+    None = 0x00,
+    Input = 0x01,
+    Output = 0x02,
+    Read = 0x03,
 };
 
 const char* MsgTypeToString(MessageType type);

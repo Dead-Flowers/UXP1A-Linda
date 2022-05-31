@@ -34,6 +34,7 @@ std::string TupleToString(const Tuple& tuple) {
     ss << "(";
     for(auto item: tuple) {
         std::visit(overloaded {
+                [&](const std::string value) { ss << "\"" << value << "\""; },
                 [&](const auto value) { ss << value; },
         }, item);
 

@@ -199,45 +199,9 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: \
  /usr/include/c++/12.1.0/bits/stl_tempbuf.h \
  /usr/include/c++/12.1.0/bits/uniform_int_dist.h \
  /usr/include/c++/12.1.0/cstring /usr/include/string.h \
- /usr/include/strings.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/TupleParser.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Lexer.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Token.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/TokenType.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/StringReader.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Lexer.h \
- /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/PatternsParser.h \
- /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/utilities.h \
- /usr/include/c++/12.1.0/random /usr/include/c++/12.1.0/cmath \
- /usr/include/math.h /usr/include/bits/math-vector.h \
- /usr/include/bits/libm-simd-decl-stubs.h \
- /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
- /usr/include/bits/fp-fast.h \
- /usr/include/bits/mathcalls-helper-functions.h \
- /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
- /usr/include/bits/iscanonical.h /usr/include/c++/12.1.0/bits/specfun.h \
- /usr/include/c++/12.1.0/limits /usr/include/c++/12.1.0/tr1/gamma.tcc \
- /usr/include/c++/12.1.0/tr1/special_function_util.h \
- /usr/include/c++/12.1.0/tr1/bessel_function.tcc \
- /usr/include/c++/12.1.0/tr1/beta_function.tcc \
- /usr/include/c++/12.1.0/tr1/ell_integral.tcc \
- /usr/include/c++/12.1.0/tr1/exp_integral.tcc \
- /usr/include/c++/12.1.0/tr1/hypergeometric.tcc \
- /usr/include/c++/12.1.0/tr1/legendre_function.tcc \
- /usr/include/c++/12.1.0/tr1/modified_bessel_func.tcc \
- /usr/include/c++/12.1.0/tr1/poly_hermite.tcc \
- /usr/include/c++/12.1.0/tr1/poly_laguerre.tcc \
- /usr/include/c++/12.1.0/tr1/riemann_zeta.tcc \
- /usr/include/c++/12.1.0/bits/random.h \
- /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/opt_random.h \
- /usr/include/c++/12.1.0/bits/random.tcc /usr/include/c++/12.1.0/numeric \
- /usr/include/c++/12.1.0/bits/stl_numeric.h /usr/include/c++/12.1.0/bit \
- /usr/include/c++/12.1.0/pstl/glue_numeric_defs.h \
- /usr/include/c++/12.1.0/pstl/execution_defs.h \
- /usr/include/c++/12.1.0/memory \
+ /usr/include/strings.h /usr/include/c++/12.1.0/memory \
  /usr/include/c++/12.1.0/bits/stl_raw_storage_iter.h \
- /usr/include/c++/12.1.0/bits/align.h \
+ /usr/include/c++/12.1.0/bits/align.h /usr/include/c++/12.1.0/bit \
  /usr/include/c++/12.1.0/bits/unique_ptr.h \
  /usr/include/c++/12.1.0/bits/shared_ptr.h \
  /usr/include/c++/12.1.0/bits/shared_ptr_base.h \
@@ -249,5 +213,68 @@ lib/linda/CMakeFiles/linda.dir/src/linda.cpp.o: \
  /usr/include/c++/12.1.0/bits/ranges_algobase.h \
  /usr/include/c++/12.1.0/bits/uses_allocator_args.h \
  /usr/include/c++/12.1.0/pstl/glue_memory_defs.h \
+ /usr/include/c++/12.1.0/pstl/execution_defs.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/TupleParser.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/tuple.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Lexer.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Token.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/TokenType.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/StringReader.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/logger.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/common.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/tweakme.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/null_mutex.h \
  /usr/include/c++/12.1.0/utility \
- /usr/include/c++/12.1.0/bits/stl_relops.h
+ /usr/include/c++/12.1.0/bits/stl_relops.h /usr/include/c++/12.1.0/chrono \
+ /usr/include/c++/12.1.0/bits/chrono.h /usr/include/c++/12.1.0/ratio \
+ /usr/include/c++/12.1.0/limits /usr/include/c++/12.1.0/ctime \
+ /usr/include/c++/12.1.0/sstream /usr/include/c++/12.1.0/bits/sstream.tcc \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/fmt.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/core.h \
+ /usr/include/c++/12.1.0/cstddef /usr/include/c++/12.1.0/iterator \
+ /usr/include/c++/12.1.0/bits/stream_iterator.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/format.h \
+ /usr/include/c++/12.1.0/cmath /usr/include/math.h \
+ /usr/include/bits/math-vector.h /usr/include/bits/libm-simd-decl-stubs.h \
+ /usr/include/bits/flt-eval-method.h /usr/include/bits/fp-logb.h \
+ /usr/include/bits/fp-fast.h \
+ /usr/include/bits/mathcalls-helper-functions.h \
+ /usr/include/bits/mathcalls.h /usr/include/bits/mathcalls-narrow.h \
+ /usr/include/bits/iscanonical.h /usr/include/c++/12.1.0/bits/specfun.h \
+ /usr/include/c++/12.1.0/tr1/gamma.tcc \
+ /usr/include/c++/12.1.0/tr1/special_function_util.h \
+ /usr/include/c++/12.1.0/tr1/bessel_function.tcc \
+ /usr/include/c++/12.1.0/tr1/beta_function.tcc \
+ /usr/include/c++/12.1.0/tr1/ell_integral.tcc \
+ /usr/include/c++/12.1.0/tr1/exp_integral.tcc \
+ /usr/include/c++/12.1.0/tr1/hypergeometric.tcc \
+ /usr/include/c++/12.1.0/tr1/legendre_function.tcc \
+ /usr/include/c++/12.1.0/tr1/modified_bessel_func.tcc \
+ /usr/include/c++/12.1.0/tr1/poly_hermite.tcc \
+ /usr/include/c++/12.1.0/tr1/poly_laguerre.tcc \
+ /usr/include/c++/12.1.0/tr1/riemann_zeta.tcc \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/core.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/log_msg.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/backtracer.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/log_msg_buffer.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/circular_q.h \
+ /usr/include/c++/12.1.0/cassert /usr/include/assert.h \
+ /usr/include/c++/12.1.0/mutex /usr/include/c++/12.1.0/bits/unique_lock.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/Lexer.h \
+ /home/daniell/dev/UXP1A-Linda/lib/parser/include/parser/PatternsParser.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/utilities.h \
+ /usr/include/c++/12.1.0/random /usr/include/c++/12.1.0/bits/random.h \
+ /usr/include/c++/12.1.0/x86_64-pc-linux-gnu/bits/opt_random.h \
+ /usr/include/c++/12.1.0/bits/random.tcc /usr/include/c++/12.1.0/numeric \
+ /usr/include/c++/12.1.0/bits/stl_numeric.h \
+ /usr/include/c++/12.1.0/pstl/glue_numeric_defs.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/spdlog.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/registry.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/version.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/synchronous_factory.h \
+ /home/daniell/dev/UXP1A-Linda/lib/linda/include/linda/exceptions.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/stdout_color_sinks.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/ansicolor_sink.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/console_globals.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/sink.h \
+ /home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/formatter.h

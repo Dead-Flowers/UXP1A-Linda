@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="linda"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\_deps\;CMake Files\_deps\doctest-src\;CMake Files\_deps\doctest-src\scripts\;CMake Files\_deps\doctest-src\scripts\cmake\;CMake Files\_deps\spdlog-src\;CMake Files\_deps\spdlog-src\cmake\;CMake Files\src\;CMake Files\lib\;CMake Files\lib\linda\;CMake Files\lib\parser\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="list_install_components">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 list_install_components"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 install"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/local">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 install/local"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="install/strip">
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 install/strip"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lindaTestClient">
+				<Option output="/home/daniell/dev/UXP1A-Linda/src/lindaTestClient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 lindaTestClient"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lindaTestClient/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/src/lindaTestClient" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 lindaTestClient/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lindaTestHost">
+				<Option output="/home/daniell/dev/UXP1A-Linda/src/lindaTestHost" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 lindaTestHost"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lindaTestHost/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/src/lindaTestHost" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/src"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 lindaTestHost/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/src/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="linda">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/linda/liblinda.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/linda"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 linda"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="linda/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/linda/liblinda.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/linda"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 linda/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lindaUnitTests">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/linda/lindaUnitTests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/linda"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 lindaUnitTests"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="lindaUnitTests/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/linda/lindaUnitTests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/linda"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 lindaUnitTests/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/linda/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="spdlog">
+				<Option output="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/libspdlogd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 spdlog"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="spdlog/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/libspdlogd.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 spdlog/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/spdlog-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="doctest_with_main">
+				<Option output="/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/libdoctest_with_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/_deps/doctest-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 doctest_with_main"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="doctest_with_main/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/libdoctest_with_main.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/_deps/doctest-build"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DDOCTEST_CONFIG_IMPLEMENT_WITH_MAIN"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 doctest_with_main/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/_deps/doctest-build/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parser">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/parser/libparser.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/parser"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 parser"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parser/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/parser/libparser.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/parser"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 parser/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parserUnitTests">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/parser/parserUnitTests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/parser"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 parserUnitTests"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="parserUnitTests/fast">
+				<Option output="/home/daniell/dev/UXP1A-Linda/lib/parser/parserUnitTests" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/daniell/dev/UXP1A-Linda/lib/parser"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DSPDLOG_COMPILED_LIB"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/linda/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/lib/parser/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include"/>
+					<Add directory="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 parserUnitTests/fast"/>
+					<CompileFile command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -f &quot;/home/daniell/dev/UXP1A-Linda/lib/parser/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src/doctest/parts/doctest.cpp">
+			<Option target="doctest_with_main"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/async.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/async_logger-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/async_logger.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/common-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/common.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/backtracer-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/backtracer.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/circular_q.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/console_globals.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/file_helper-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/file_helper.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/fmt_helper.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/log_msg-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/log_msg.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/log_msg_buffer-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/log_msg_buffer.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/mpmc_blocking_q.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/null_mutex.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/os-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/os.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/periodic_worker-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/periodic_worker.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/registry-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/registry.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/synchronous_factory.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/tcp_client-windows.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/tcp_client.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/thread_pool-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/thread_pool.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/udp_client-windows.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/udp_client.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/details/windows_include.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bin_to_hex.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/args.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/chrono.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/color.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/compile.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/core.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/format-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/format.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/locale.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/os.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/ostream.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/printf.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/ranges.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/bundled/xchar.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/chrono.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/compile.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/fmt.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/ostr.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/ranges.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fmt/xchar.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/formatter.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/fwd.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/logger-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/logger.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/pattern_formatter-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/pattern_formatter.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/android_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/ansicolor_sink-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/ansicolor_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/base_sink-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/base_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/basic_file_sink-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/basic_file_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/daily_file_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/dist_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/dup_filter_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/hourly_file_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/mongo_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/msvc_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/null_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/ostream_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/qt_sinks.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/ringbuffer_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/rotating_file_sink-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/rotating_file_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/sink-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/stdout_color_sinks-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/stdout_color_sinks.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/stdout_sinks-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/stdout_sinks.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/syslog_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/systemd_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/tcp_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/udp_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/win_eventlog_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/wincolor_sink-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/sinks/wincolor_sink.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/spdlog-inl.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/spdlog.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/stopwatch.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/tweakme.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/include/spdlog/version.h">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/async.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/cfg.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/color_sinks.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/file_sinks.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/fmt.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/spdlog.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/src/stdout_sinks.cpp">
+			<Option target="spdlog"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/linda/src/linda.cpp">
+			<Option target="linda"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/linda/src/message.cpp">
+			<Option target="linda"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/linda/test/tests.cpp">
+			<Option target="lindaUnitTests"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/parser/src/Lexer.cpp">
+			<Option target="parser"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/parser/src/PatternsParser.cpp">
+			<Option target="parser"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/parser/src/StringReader.cpp">
+			<Option target="parser"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/parser/src/TupleParser.cpp">
+			<Option target="parser"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/parser/test/test.cpp">
+			<Option target="parserUnitTests"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/src/test-client/main.cpp">
+			<Option target="lindaTestClient"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/src/test-host/main.cpp">
+			<Option target="lindaTestHost"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\_deps\doctest-src\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/doctest-src/scripts/cmake/Config.cmake.in">
+			<Option virtualFolder="CMake Files\_deps\doctest-src\scripts\cmake\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\_deps\spdlog-src\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/cmake/ide.cmake">
+			<Option virtualFolder="CMake Files\_deps\spdlog-src\cmake\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/_deps/spdlog-src/cmake/utils.cmake">
+			<Option virtualFolder="CMake Files\_deps\spdlog-src\cmake\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/src/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\src\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/linda/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\linda\"/>
+		</Unit>
+		<Unit filename="/home/daniell/dev/UXP1A-Linda/lib/parser/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\lib\parser\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

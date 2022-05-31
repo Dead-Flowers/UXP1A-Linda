@@ -106,7 +106,10 @@ std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int tim
     std::cout.write(response.tuple, (ssize_t) strlen(response.tuple));
     std::cout << std::endl;
 
-    return std::nullopt;
+    auto lexer = linda::modules::Lexer(response.tuple);
+    auto parser = linda::modules::TupleParser(lexer);
+
+    return parser.parse();
 }
 
 void TupleSpace::output(std::string tuple) {
@@ -180,6 +183,7 @@ void TupleSpaceHost::close() {
 
 TupleSpaceHost::TupleSpaceHost() {
     _logger = spdlog::stdout_color_mt("TupleSpaceHost");
+    _logger->set_level(spdlog::level::debug);
     closeProgram = [this](int signum){this->close();};
     auto res = std::signal(SIGINT, sigHandler);
 }
@@ -254,14 +258,14 @@ void TupleSpaceHost::insertPendingRequest(uint32_t requestId, key_t responseQueu
 }
 
 bool TupleSpaceHost::patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple) {
-    if (tuple.size() != pattern.size())
-        return false;
-
-    for(int i = 0; i < tuple.size(); i++) {
-        auto& tupleItem = tuple[i];
-        auto& patternItem = pattern[i];
-        if (!compareValue(tupleItem, patternItem))
+    for(auto item: tuple) {
+        auto pat = getPattern(pattern, static_cast<TupleDataType>(item.index()));
+        if (!pat.has_value()) {
             return false;
+        }
+        if(!compareValue(item, pat.value())) {
+            return false;
+        }
     }
 
     return true;
@@ -292,7 +296,7 @@ bool TupleSpaceHost::compareValue(TupleItem item, TupleItemPattern pattern) {
             return compareTupleToPattern<int64_t>(item, pattern);
         }
         case TupleDataType::Float: {
-            if (pattern.op == TupleOperator::Equal)
+            if (pattern.value.has_value() && pattern.op == TupleOperator::Equal)
                 throw LindaException("Not allowed operator equal on float");
             return compareTupleToPattern<float>(item, pattern);
         }
@@ -341,6 +345,19 @@ void TupleSpaceHost::printSpace() {
         }
         std::cout << std::endl;
     }
+}
+
+bool TupleSpaceHost::contains(const TuplePattern& tuplePattern) {
+    auto val = searchSpace(tuplePattern, false);
+    return val.has_value();
+}
+
+int TupleSpaceHost::spaceSize() {
+    return space.data.size();
+}
+
+void TupleSpaceHost::reset() {
+    space.data.clear();
 }
 
 
