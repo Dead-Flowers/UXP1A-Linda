@@ -9,6 +9,7 @@
 #include "spdlog/spdlog.h"
 #include "linda/exceptions.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "parser/exceptions.h"
 #include "linda/consts.h"
 
 void sigHandler(int signum) {
@@ -168,7 +169,10 @@ void TupleSpaceHost::runServer() {
     while(run) {
         auto req = TupleRequest{};
         if(msgrcv(mainQueueId, (void*)&req, sizeof(TupleRequest), 0, 0) < 0) {
-            throw LindaSyscallException(errno);
+            if(run)
+                throw LindaSyscallException(errno);
+            else
+                return;
         }
 
         _logger->info("Received request #{0} from Q{1} of type {2}", req.requestId,
@@ -193,6 +197,7 @@ void TupleSpaceHost::runServer() {
 void TupleSpaceHost::close() {
     if (_closed.test_and_set())
         return;
+    run = false;
     //TODO: ignore res ?
     auto res = msgctl(mainQueueId,IPC_RMID,NULL);
 }
@@ -231,6 +236,11 @@ std::optional<TupleResponse> TupleSpaceHost::processReadOrInput(TupleRequest req
     auto response = TupleResponse();
     response.requestId = request.requestId;
 
+    auto check = this->checkPattern(request);
+    if(check.has_value()) {
+        return check.value();
+    }
+
     auto patterns = this->parsePattern(request.tuple);
 
     if (patterns.size() > MAX_TUPLE_ITEMS) {
@@ -256,20 +266,20 @@ std::optional<TupleResponse> TupleSpaceHost::processOutput(TupleRequest request)
     response.requestId = request.requestId;
     response.messageType = MessageType::Output;
 
-    auto tuple = this->parseTuple(request.tuple);
-
-    if (tuple.size() > MAX_TUPLE_ITEMS) {
-        response.messageType = MessageType::Error;
-        writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
-        return response;
+    auto check = this->checkTuple(request);
+    if(check.has_value()) {
+        return check.value();
     }
+
+    // can do this safely, check tuple would have return an error
+    auto tuple = this->parseTuple(request.tuple).value();
 
     this->insertTuple(tuple);
 
     return response;
 }
 
-Tuple TupleSpaceHost::parseTuple(const char* tuple) {
+std::optional<Tuple> TupleSpaceHost::parseTuple(const char* tuple) {
     auto lexer = linda::modules::Lexer(tuple);
     auto parser = linda::modules::TupleParser(lexer);
 
@@ -391,6 +401,74 @@ int TupleSpaceHost::spaceSize() {
 void TupleSpaceHost::reset() {
     space.data.clear();
     space.pendingRequests.clear();
+}
+
+std::optional<TupleResponse> TupleSpaceHost::checkPattern(TupleRequest request) {
+    std::vector<TupleItemPattern> patterns;
+    auto response = TupleResponse();
+    response.messageType = MessageType::Error;
+
+    try {
+        patterns = this->parsePattern(request.tuple);
+    } catch (LindaException e) {
+        std::string errMsg = e.errorMsg;
+        writeStringToCharArray(errMsg, response.tuple, sizeof(response.tuple));
+        return response;
+    } catch (PatternParsingException e) {
+        std::string errMsg = e.errorMsg;
+        writeStringToCharArray(errMsg, response.tuple, sizeof(response.tuple));
+        return response;
+    } catch (LexerParsingException e) {
+        std::string errMsg = e.errorMsg;
+        writeStringToCharArray(errMsg, response.tuple, sizeof(response.tuple));
+        return response;
+    }
+
+    if (patterns.size() > 16) {
+        writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
+        return response;
+    }
+
+    for(auto pattern: patterns) {
+        if (pattern.type == TupleDataType::Float && pattern.value.has_value() && pattern.op == TupleOperator::Equal) {
+            writeStringToCharArray("Not allowed operator equal on float", response.tuple, sizeof(response.tuple));
+            return response;
+        }
+    }
+}
+
+std::optional<TupleResponse> TupleSpaceHost::checkTuple(TupleRequest request) {
+    std::optional<Tuple> tuple;
+    auto response = TupleResponse();
+    response.messageType = MessageType::Error;
+
+    try {
+        tuple = this->parseTuple(request.tuple);
+    } catch (LindaException e) {
+        std::string errMsg = e.errorMsg;
+        writeStringToCharArray(errMsg, response.tuple, sizeof(response.tuple));
+        return response;
+    } catch (TupleParsingException e) {
+        std::string errMsg = e.errorMsg;
+        writeStringToCharArray(errMsg, response.tuple, sizeof(response.tuple));
+        return response;
+    } catch (LexerParsingException e) {
+        std::string errMsg = e.errorMsg;
+        writeStringToCharArray(errMsg, response.tuple, sizeof(response.tuple));
+        return response;
+    }
+
+    if(!tuple.has_value()) {
+        writeStringToCharArray("incorrect syntax", response.tuple, sizeof(response.tuple));
+        return response;
+    }
+
+    if (tuple.value().size() > 16) {
+        writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
+        return response;
+    }
+
+    return std::nullopt;
 }
 
 

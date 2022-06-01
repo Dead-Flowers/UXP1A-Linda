@@ -21,6 +21,7 @@
 
 void clientSigHandler(int signum);
 
+
 class TupleSpace {
 public:
     TupleSpace();
@@ -78,9 +79,11 @@ private:
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
     void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
     bool compareValue(TupleItem, TupleItemPattern);
-    Tuple parseTuple(const char*);
+    std::optional<Tuple> parseTuple(const char*);
     std::vector<TupleItemPattern> parsePattern(const char*);
     bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
+    std::optional<TupleResponse> checkTuple(TupleRequest);
+    std::optional<TupleResponse> checkPattern(TupleRequest);
     TupleSpaceContainer space;
     int mainQueueId;
     int run;
