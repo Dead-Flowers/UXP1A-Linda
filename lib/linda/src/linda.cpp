@@ -45,7 +45,7 @@ void TupleSpace::open(const char* keyPath, int projectId, int clientChmod) {
         _logger->error("Error while creating client queue");
         throw LindaSyscallException(errno);
     }
-    _logger->info("Sucessfully created client queue with key", _clientQueueKey);
+    _logger->info("Sucessfully created client queue with key {0}", _clientQueueKey);
 
 }
 
