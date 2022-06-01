@@ -54,7 +54,7 @@ TEST_CASE("Test parsing tuple with multiple elements") {
     CHECK(std::get<std::string>(res[2]) == "unixx");
 }
 
-TEST_CASE("Test failed parsing tuple") {
+TEST_CASE("Test failed parsing tuple - lexer") {
 
     auto tuple = "(\"abc)";
     Lexer lexer(tuple);
@@ -62,7 +62,7 @@ TEST_CASE("Test failed parsing tuple") {
     CHECK_THROWS_AS(p.parse(), LexerParsingException);
 }
 
-TEST_CASE("Test failed parsing tuple - lexer") {
+TEST_CASE("Test failed parsing tuple") {
 
     auto tuple = "\"abc\")";
     Lexer lexer(tuple);
