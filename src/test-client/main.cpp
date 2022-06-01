@@ -1,9 +1,11 @@
 #include "linda/linda.h"
+#include "spdlog/cfg/env.h"
 
 int main() {
-    key_t key = ftok("./key.k", 2137);
+    spdlog::cfg::load_env_levels();
+
     TupleSpace client;
-    client.open(key);
+    client.open("/tmp/linda.key", 1234);
     client.output("(123, 456.789)");
     auto _ =client.read("(integer:*, float:*)", 10);
 

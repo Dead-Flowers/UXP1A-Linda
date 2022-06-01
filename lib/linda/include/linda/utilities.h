@@ -16,7 +16,7 @@ key_t createQueueWithRandomKey(int flags, int* pMsgId = nullptr) {
     } while (msgId == -1 && errno == EEXIST);
 
     if (msgId == -1) {
-        throw std::exception(); // TODO: exceptions
+        return -1;
     }
     if (pMsgId)
         *pMsgId = msgId;

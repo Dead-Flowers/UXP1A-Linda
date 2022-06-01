@@ -17,36 +17,29 @@
 #include "parser/Lexer.h"
 #include "parser/PatternsParser.h"
 #include "spdlog/logger.h"
-
-#define DEFAULT_KEY_FILE_PATH "./key.k"
-#define DEFAULT_PROJECT_ID 2137
-
-#define MAX_TUPLE_LEN 15
-#define TOO_LONG_TUPLE_ERROR "too long tuple"
-
+#include "consts.h"
 
 void clientSigHandler(int signum);
-
 
 class TupleSpace {
 public:
     TupleSpace();
     ~TupleSpace();
     // timeout is in seconds, 0 - wait for sever response indefinitely
-    void open(key_t tupleHostKey);
-    void close();
+    void open(const char* keyPath, int projectId, int clientChmod = DEFAULT_CHMOD);
     std::optional<Tuple> input(std::string tupleTemplate, int timeout);
     std::optional<Tuple> read(std::string tupleTemplate, int timeout);
     void output(std::string tuple);
+    void close();
 private:
     std::shared_ptr<spdlog::logger> _logger;
     int _hostQueueId;
     int _clientQueueId;
     key_t _clientQueueKey;
+    std::atomic_int _lastRequestId;
     std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 
     std::optional<TupleResponse> waitForResponse(uint32_t requestId, int timeout);
-
     std::optional<Tuple> requestTuple(std::string tupleTemplate, int timeout, bool pop);
 
 
@@ -69,7 +62,7 @@ public:
     TupleSpaceHost();
     ~TupleSpaceHost();
 
-    void init(const char* keyPath, int projectId);
+    void init(const char* keyPath, int projectId, int chmod = DEFAULT_CHMOD);
     void runServer();
     void close();
     int spaceSize();
@@ -80,13 +73,13 @@ private:
     std::optional<TupleResponse> processReadOrInput(TupleRequest, bool pop);
     std::optional<TupleResponse> processOutput(TupleRequest);
     bool trySendResponse(key_t responseQueueKey, const TupleResponse& tupleResponse);
-    void insertTuple(Tuple);
-    void notifyPendingRequests(const Tuple& tuple);
+    void insertTuple(const Tuple& tuple);
+    bool tryMatchPendingRequests(const Tuple& tuple);
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
     void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
-    bool compareValue(TupleItem, TupleItemPattern); //TODO: consider removing out of class
-    Tuple parseTuple(const char*); //TODO: implement
-    std::vector<TupleItemPattern> parsePattern(const char*); //TODO: implement
+    bool compareValue(TupleItem, TupleItemPattern);
+    Tuple parseTuple(const char*);
+    std::vector<TupleItemPattern> parsePattern(const char*);
     bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
     TupleSpaceContainer space;
     int mainQueueId;

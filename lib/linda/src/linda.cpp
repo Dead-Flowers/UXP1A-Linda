@@ -9,6 +9,7 @@
 #include "spdlog/spdlog.h"
 #include "linda/exceptions.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include "linda/consts.h"
 
 void sigHandler(int signum) {
     closeProgram(signum);
@@ -29,15 +30,20 @@ TupleSpace::~TupleSpace() {
     this->close();
 }
 
-void TupleSpace::open(key_t tupleHostKey) {
+void TupleSpace::open(const char* keyPath, int projectId, int clientChmod) {
     if (_clientQueueKey) {
         throw LindaException("null client queue key");
     }
-    _hostQueueId = msgget(tupleHostKey, 0);
-    if (_hostQueueId == -1) {
+    _hostQueueId = msgget(ftok(keyPath, projectId), 0);
+    if (_hostQueueId < 0) {
+        _logger->error("Error while opening host queue");
         throw LindaSyscallException(errno);
     }
-    _clientQueueKey = createQueueWithRandomKey(0666 | IPC_CREAT | IPC_EXCL,&_clientQueueId);
+    _clientQueueKey = createQueueWithRandomKey(clientChmod | IPC_CREAT | IPC_EXCL,&_clientQueueId);
+    if(_clientQueueId < 0){
+        _logger->error("Error while creating client queue");
+        throw LindaSyscallException(errno);
+    }
 }
 
 void TupleSpace::close(){
@@ -65,7 +71,7 @@ std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int tim
     if (tupleTemplate.size() > 1024) {
         throw LindaException("Too long tuple string");
     }
-    uint32_t reqId = std::rand();
+    uint32_t reqId = _lastRequestId++;
     TupleRequest request = {
             pop ? MessageType::Input : MessageType::Read,
             _clientQueueKey,
@@ -88,7 +94,7 @@ std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int tim
 }
 
 void TupleSpace::output(std::string tuple) {
-    uint32_t reqId = std::rand();
+    uint32_t reqId = ++_lastRequestId;
     TupleRequest request = {
             MessageType::Output,
             _clientQueueKey,
@@ -134,20 +140,16 @@ std::optional<TupleResponse> TupleSpace::waitForResponse(uint32_t requestId, int
 }
 
 
-void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectID) {
+void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectId, int chmod) {
     auto key_file_path = DEFAULT_KEY_FILE_PATH;
     if (inputKeyFile) {
         key_file_path = inputKeyFile;
     }
 
-    auto proj_id = DEFAULT_PROJECT_ID;
-    if (inputProjectID != 0) {
-        proj_id = inputProjectID;
-    }
-
+    auto proj_id = inputProjectId == 0 ? DEFAULT_PROJECT_ID : inputProjectId;
     auto key = ftok(key_file_path, proj_id);
 
-    if((mainQueueId = msgget(key, 0666 | IPC_CREAT)) < 0)
+    if((mainQueueId = msgget(key, chmod | IPC_CREAT)) < 0)
         throw LindaSyscallException(errno);
 
 }
@@ -169,17 +171,19 @@ void TupleSpaceHost::runServer() {
             throw LindaSyscallException(errno);
         }
 
-        spdlog::info("Received request #{0} of type {1}", req.requestId, MsgTypeToString(req.messageType));
-        spdlog::debug("Content of request #{0}: {1}", req.requestId, req.tuple);
+        _logger->info("Received request #{0} from Q{1} of type {2}", req.requestId,
+                      req.responseQueueKey, MsgTypeToString(req.messageType));
+        _logger->debug("Content of request #{0}: {1}", req.requestId, req.tuple);
 
         auto response = this->processRequest(req);
 
         if (response.has_value()) {
             response->requestId = req.requestId;
-            spdlog::info("Immediately fulfilled request #{0}", req.requestId);
+            _logger->info("Immediately fulfilled request #{0}", req.requestId);
 
             if (!trySendResponse(req.responseQueueKey, response.value())) {
-                spdlog::warn("Error while sending response to #{0}: {1}", req.requestId, std::strerror(errno));
+                _logger->warn("Error while sending response to #{0} Q{1}: {2}", req.requestId,
+                              req.responseQueueKey, std::strerror(errno));
             }
         }
 
@@ -189,14 +193,14 @@ void TupleSpaceHost::runServer() {
 void TupleSpaceHost::close() {
     if (_closed.test_and_set())
         return;
-    run = false;
     //TODO: ignore res ?
     auto res = msgctl(mainQueueId,IPC_RMID,NULL);
 }
 
 TupleSpaceHost::TupleSpaceHost() {
     _logger = getLogger("TupleSpaceHost");
-    _logger->set_level(spdlog::level::debug);
+    _logger->set_level(spdlog::level::trace);
+
     closeProgram = [this](int signum){this->close();};
     auto res = std::signal(SIGINT, sigHandler);
 }
@@ -229,7 +233,7 @@ std::optional<TupleResponse> TupleSpaceHost::processReadOrInput(TupleRequest req
 
     auto patterns = this->parsePattern(request.tuple);
 
-    if (patterns.size() > 15) {
+    if (patterns.size() > MAX_TUPLE_ITEMS) {
         response.messageType = MessageType::Error;
         writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
         return response;
@@ -254,7 +258,7 @@ std::optional<TupleResponse> TupleSpaceHost::processOutput(TupleRequest request)
 
     auto tuple = this->parseTuple(request.tuple);
 
-    if (tuple.size() > 15) {
+    if (tuple.size() > MAX_TUPLE_ITEMS) {
         response.messageType = MessageType::Error;
         writeStringToCharArray(TOO_LONG_TUPLE_ERROR, response.tuple, sizeof(response.tuple));
         return response;
@@ -262,7 +266,6 @@ std::optional<TupleResponse> TupleSpaceHost::processOutput(TupleRequest request)
 
     this->insertTuple(tuple);
 
-    this->notifyPendingRequests(tuple);
     return response;
 }
 
@@ -280,8 +283,10 @@ std::vector<TupleItemPattern> TupleSpaceHost::parsePattern(const char* pattern) 
     return parser.parse();
 }
 
-void TupleSpaceHost::insertTuple(Tuple tuple) {
-    space.data.push_back(tuple);
+void TupleSpaceHost::insertTuple(const Tuple& tuple) {
+    if(!this->tryMatchPendingRequests(tuple)) {
+        space.data.push_back(tuple);
+    }
 }
 
 void TupleSpaceHost::insertPendingRequest(uint32_t requestId, key_t responseQueueKey,
@@ -343,28 +348,35 @@ bool TupleSpaceHost::compareValue(TupleItem item, TupleItemPattern pattern) {
         }
     }
 
-void TupleSpaceHost::notifyPendingRequests(const Tuple& tuple) {
+bool TupleSpaceHost::tryMatchPendingRequests(const Tuple& tuple) {
     _logger->debug("Notifying pending requests");
-    for(auto iter = space.pendingRequests.begin(); iter != space.pendingRequests.end(); iter++) {
-        if(this->patternMatchesTuple(iter->itemPatterns, tuple)) {
-            auto response = TupleResponse{};
-            response.messageType = MessageType::Output;
-            response.requestId = iter->requestId;
-            writeStringToCharArray(TupleToString(tuple), response.tuple, sizeof(response.tuple));
-
-            if(!trySendResponse(iter->responseQueueKey, response)) {
-                spdlog::warn("Error while notifying/sending response to #{0}: {1}", iter->requestId, std::strerror(errno));
-                continue;
-            }
-            // success, stop matching if popped
-            if (iter->pop){
-                *iter = space.pendingRequests.back();
-                space.pendingRequests.pop_back();
-                return;
-            }
+    auto iter = space.pendingRequests.begin();
+    while(iter != space.pendingRequests.end()) {
+        if (!this->patternMatchesTuple(iter->itemPatterns, tuple)) {
+            iter++;
+            continue;
         }
-    }
+        auto response = TupleResponse{};
+        response.messageType = MessageType::Output;
+        response.requestId = iter->requestId;
+        writeStringToCharArray(TupleToString(tuple), response.tuple, sizeof(response.tuple));
 
+        if (!trySendResponse(iter->responseQueueKey, response)) {
+            _logger->warn("Error while notifying/sending response to #{0}: {1}", iter->requestId,
+                         std::strerror(errno));
+        } else {
+            // success, stop matching if popped
+            *iter = space.pendingRequests.back();
+            space.pendingRequests.pop_back();
+            if (iter->pop) {
+                return true;
+            }
+            continue; // don't advance iter
+        }
+        iter++;
+
+    }
+    return false;
 }
 
 bool TupleSpaceHost::contains(const TuplePattern& tuplePattern) {
