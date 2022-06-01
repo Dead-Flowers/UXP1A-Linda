@@ -45,6 +45,8 @@ void TupleSpace::open(const char* keyPath, int projectId, int clientChmod) {
         _logger->error("Error while creating client queue");
         throw LindaSyscallException(errno);
     }
+    _logger->info("Sucessfully created client queue with key", _clientQueueKey);
+
 }
 
 void TupleSpace::close(){
@@ -69,7 +71,7 @@ std::optional<Tuple> TupleSpace::read(std::string tupleTemplate, int timeout) {
 }
 
 std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int timeout, bool pop) {
-    if (tupleTemplate.size() > 1024) {
+    if (tupleTemplate.size() > MAX_TUPLE_LENGTH) {
         throw LindaException("Too long tuple string");
     }
     uint32_t reqId = _lastRequestId++;
@@ -79,6 +81,8 @@ std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int tim
             reqId,
     };
     writeStringToCharArray(std::move(tupleTemplate), request.tuple, sizeof(request.tuple));
+    _logger->debug("Request #{0}, matching pattern: {1} (pop={2})", request.requestId, request.tuple, pop);
+
 
     if (msgsnd(_hostQueueId, (void*)&request, sizeof(request), 0) < 0) {
         throw LindaSyscallException(errno);
@@ -102,7 +106,7 @@ void TupleSpace::output(std::string tuple) {
             reqId,
     };
     writeStringToCharArray(std::move(tuple), request.tuple, sizeof(request.tuple));
-
+    _logger->debug("Request #{0}, outputting tuple: {1}", request.requestId, request.tuple);
     int result;
     if ((result = msgsnd(_hostQueueId, (void*)&request, sizeof(request), 0)) < 0) {
         throw LindaSyscallException(errno);
@@ -135,6 +139,7 @@ std::optional<TupleResponse> TupleSpace::waitForResponse(uint32_t requestId, int
     alarm(0);
 
     if (response.messageType == MessageType::Error) {
+        _logger->error("Received error response for #{0}: {1}", response.requestId, response.tuple);
         throw LindaException(response.tuple);
     }
     return std::make_optional(response);
