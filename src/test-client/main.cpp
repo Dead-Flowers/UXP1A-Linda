@@ -6,8 +6,9 @@ int main() {
 
     TupleSpace client;
     client.open("/tmp/linda.key", 1234);
-    client.output("(123, 456.789)");
-    auto _ =client.read("(integer:*, float:*)", 10);
+    client.output("(123, 456.789");
+
+
 
     puts("done\n");
     return 0;

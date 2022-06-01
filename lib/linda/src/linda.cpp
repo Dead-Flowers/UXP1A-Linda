@@ -238,6 +238,7 @@ std::optional<TupleResponse> TupleSpaceHost::processReadOrInput(TupleRequest req
 
     auto check = this->checkPattern(request);
     if(check.has_value()) {
+        _logger->warn("Bad tuple, requestId: #{0},  reason: {1}", request.requestId, response.tuple);
         return check.value();
     }
 
@@ -268,6 +269,7 @@ std::optional<TupleResponse> TupleSpaceHost::processOutput(TupleRequest request)
 
     auto check = this->checkTuple(request);
     if(check.has_value()) {
+        _logger->warn("Bad tuple, requestId: #{0},  reason: {1}", request.requestId, response.tuple);
         return check.value();
     }
 
@@ -376,6 +378,7 @@ bool TupleSpaceHost::tryMatchPendingRequests(const Tuple& tuple) {
                          std::strerror(errno));
         } else {
             // success, stop matching if popped
+            _logger->debug("Notifying request id {0}", iter->requestId);
             *iter = space.pendingRequests.back();
             space.pendingRequests.pop_back();
             if (iter->pop) {
