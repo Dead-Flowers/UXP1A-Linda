@@ -85,9 +85,11 @@ private:
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
     void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
     bool compareValue(TupleItem, TupleItemPattern); //TODO: consider removing out of class
-    Tuple parseTuple(const char*); //TODO: implement
+    std::optional<Tuple> parseTuple(const char*); //TODO: implement
     std::vector<TupleItemPattern> parsePattern(const char*); //TODO: implement
     bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
+    std::optional<TupleResponse> checkTuple(TupleRequest);
+    std::optional<TupleResponse> checkPattern(TupleRequest);
     TupleSpaceContainer space;
     int mainQueueId;
     int run;
