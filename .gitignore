@@ -121,3 +121,5 @@ Testing/
 **/CMakeFiles/
 
 **/*.k
+
+acceptance_tests/**.out
