@@ -23,3 +23,6 @@ target_link_libraries(linda parser spdlog)
 
 add_executable(lindaUnitTests ${LINDA_UNIT_TEST_SOURCES})
 target_link_libraries(lindaUnitTests linda doctest)
+
+include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
+doctest_discover_tests(lindaUnitTests)
