@@ -1,0 +1,2 @@
+-t 1 output '(983475, \"testtest\", \"abc\", 25.75)'
+-t 1 read '(integer:*, string:>=\"test\", string:*, float:<100)'
