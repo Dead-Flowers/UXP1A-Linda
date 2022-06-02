@@ -1,2 +1,0 @@
--t 1 output "(123)"
--t 1 input "(integer:*)"
