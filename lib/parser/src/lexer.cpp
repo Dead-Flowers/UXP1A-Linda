@@ -1,11 +1,12 @@
 
-#include "parser/Lexer.h"
+#include "parser/lexer.h"
 
 #include <cctype>
 #include <algorithm>
 #include <cmath>
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "parser/exceptions.h"
+#include "parser/consts.h"
 
 using Lexer = linda::modules::Lexer;
 namespace utils = linda::modules::utils;
@@ -16,6 +17,7 @@ Lexer::Lexer(const std::string &input) : reader(StringReader(input)) {
 
 Token Lexer::nextToken() {
     this->token = Token();
+    token.type = TokenType::Unknown;
 
     while(std::isspace(currentSign)) {
         currentSign = this->reader.getNextCharacter();
@@ -68,10 +70,16 @@ bool Lexer::tryBuildNumberLiteral() {
 
         long integerPart = 0;
 
+        int digitCount = 0;
         integerPart += (currentSign - '0');
         currentSign = this->reader.getNextCharacter();
+        digitCount++;
         while(std::isdigit(currentSign)) {
+            if (digitCount >= LONG_MAX_DIGIT_COUNT) {
+                throw LexerParsingException("Number overflow");
+            }
             integerPart = (integerPart * 10) + (currentSign - '0');
+            digitCount++;
             currentSign = this->reader.getNextCharacter();
         }
         if (currentSign == '.') {
@@ -79,6 +87,9 @@ bool Lexer::tryBuildNumberLiteral() {
             int decimalPlaces = 0;
             currentSign = this->reader.getNextCharacter();
             while (std::isdigit(currentSign)) {
+                if (decimalPlaces > FLOAT_DECIMAL_PRECISION) {
+                    throw LexerParsingException("Decimal part overflow");
+                }
                 fractionPart = (fractionPart * 10) + (currentSign - '0');
                 decimalPlaces++;
                 currentSign = this->reader.getNextCharacter();

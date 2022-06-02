@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
-#include "parser/Lexer.h"
-#include "parser/TupleParser.h"
+#include "parser/lexer.h"
+#include "parser/tuple-parser.h"
 #include "parser/exceptions.h"
 
 
@@ -68,4 +68,20 @@ TEST_CASE("Test failed parsing tuple") {
     Lexer lexer(tuple);
     TupleParser p(lexer);
     CHECK_THROWS_AS(p.parse(), TupleParsingException);
+}
+
+TEST_CASE("Test parsing overflow float") {
+    auto patternInput = "(5.5235345345345)";
+    Lexer lexer(patternInput);
+    TupleParser p(lexer);
+
+    CHECK_THROWS_AS(p.parse(), LexerParsingException);
+}
+
+TEST_CASE("Test parsing overflow integer") {
+    auto patternInput = "(3454564523549876283463247583767234587247528937645982475)";
+    Lexer lexer(patternInput);
+    TupleParser p(lexer);
+
+    CHECK_THROWS_AS(p.parse(), LexerParsingException);
 }

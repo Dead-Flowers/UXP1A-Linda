@@ -13,9 +13,9 @@
 #include <iostream>
 #include <cstring>
 #include <memory>
-#include "parser/TupleParser.h"
-#include "parser/Lexer.h"
-#include "parser/PatternsParser.h"
+#include "parser/tuple-parser.h"
+#include "parser/lexer.h"
+#include "parser/patterns-parser.h"
 #include "spdlog/logger.h"
 #include "consts.h"
 

@@ -3,10 +3,10 @@ file(GLOB PARSER_SOURCES
         src/*.cpp)
 
 file(GLOB TUPLE_PARSER_UNIT_TEST_SOURCES
-        test/tupleParserTest.cpp)
+        test/tuple-parser-test.cpp)
 
 file(GLOB PATTERN_PARSER_UNIT_TEST_SOURCES
-        test/patternParserTest.cpp)
+        test/pattern-parser-test.cpp)
 
 FetchContent_Declare(spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
@@ -18,13 +18,13 @@ FetchContent_Declare(doctest
         GIT_TAG v2.4.8)
 FetchContent_MakeAvailable(doctest)
 
-add_library(parser ${PARSER_SOURCES})
+add_library(parser ${PARSER_SOURCES} include/parser/consts.h)
 target_include_directories(parser PUBLIC ${LINDA_INCLUDE})
 target_include_directories(parser PUBLIC ${PARSER_INCLUDE})
 
 target_link_libraries(parser spdlog)
 
-add_executable(tupleParserUnitTests ${TUPLE_PARSER_UNIT_TEST_SOURCES} test/tupleParserTest.cpp)
-add_executable(patternParserUnitTests ${PATTERN_PARSER_UNIT_TEST_SOURCES} test/patternParserTest.cpp)
+add_executable(tupleParserUnitTests ${TUPLE_PARSER_UNIT_TEST_SOURCES} test/tuple-parser-test.cpp)
+add_executable(patternParserUnitTests ${PATTERN_PARSER_UNIT_TEST_SOURCES} test/pattern-parser-test.cpp)
 target_link_libraries(tupleParserUnitTests parser doctest)
 target_link_libraries(patternParserUnitTests parser doctest)
