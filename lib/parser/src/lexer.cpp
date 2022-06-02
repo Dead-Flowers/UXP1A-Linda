@@ -53,9 +53,8 @@ bool Lexer::tryBuildStringLiteral() {
         this->currentSign = this->reader.getNextCharacter();
         token.value = buffer;
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 bool Lexer::tryBuildNumberLiteral() {
@@ -102,9 +101,8 @@ bool Lexer::tryBuildNumberLiteral() {
         token.type = TokenType::IntLiteral;
         token.value = belowZero ? -integerPart : integerPart;
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 bool Lexer::tryBuildType() {
@@ -122,9 +120,8 @@ bool Lexer::tryBuildType() {
         }
         token.value = buffer;
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 bool Lexer::tryBuildSingleCharacterKeyword() {
@@ -148,9 +145,8 @@ bool Lexer::tryBuildSingleCharacterKeyword() {
         token.type = TokenType::Asterisk;
         currentSign = this->reader.getNextCharacter();
         return true;
-    } else {
-        return false;
     }
+    return false;
 }
 
 bool linda::modules::Lexer::tryBuildMultipleCharacterOperator() {
@@ -182,4 +178,5 @@ bool linda::modules::Lexer::tryBuildMultipleCharacterOperator() {
         }
         throw LexerParsingException("Unrecognized operator");
     }
+    return false;
 }

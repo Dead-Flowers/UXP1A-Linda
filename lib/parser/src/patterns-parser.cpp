@@ -10,9 +10,14 @@ std::vector<TupleItemPattern> PatternParser::parse() {
     if (!checkAndConsume(TokenType::ParenthOpen)) {
         throw PatternParsingException("Missing opening parenthesis");
     }
+    if (checkAndConsume(TokenType::ParenthClose)) {
+        return patterns;
+    }
+
     auto tuplePattern = tryParseTuplePattern();
     if (tuplePattern == std::nullopt) {
-        return patterns;
+        throw PatternParsingException("Invalid pattern");
+        //return patterns;
     }
     patterns.push_back(tuplePattern.value());
     while (checkAndConsume(TokenType::Comma)) {

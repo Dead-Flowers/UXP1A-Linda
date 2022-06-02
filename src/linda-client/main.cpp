@@ -57,11 +57,16 @@ int main(int argc, char **argv) {
     } catch(std::logic_error& e) {
         std::cerr << "Error: " << e.what() << std::endl;
         std::cout << parser;
-        return 2;
+        return 1;
     }
 
     TupleSpace client;
-    client.open(parser.get<std::string>("key-path").c_str(), parser.get<int>("project-id"));
+    try {
+        client.open(parser.get<std::string>("key-path").c_str(), parser.get<int>("project-id"));
+    } catch(std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
 
 
 
@@ -69,28 +74,29 @@ int main(int argc, char **argv) {
     std::copy(dataArgs.begin(), dataArgs.end(),
               std::ostream_iterator<std::string>(data_stream, " "));
     auto data = data_stream.str();
+    auto timeout = parser.get<int>("timeout");
 
     if (action == "input" || action == "read") {
-        auto timeout = parser.get<int>("timeout");
         std::optional<Tuple> result;
-
         try {
             result = action == "input"
                      ? client.input(data, timeout)
                      : client.read(data, timeout);
         } catch(std::exception& e) {
             std::cerr << "Error: " << e.what() << std::endl;
+            return 1;
         }
 
         if (!result.has_value()) {
-            return 3;
+            return 2;
         }
         std::cout << tupleToString(result.value()) << std::endl;
     } else if (action == "output") {
         try {
-            client.output(data);
+            client.output(data, timeout);
         } catch(std::exception& e) {
             std::cerr << e.what() << std::endl;
+            return 1;
         }
     } else {
         std::cerr << "Unknown action: " << action << std::endl;

@@ -16,11 +16,20 @@ int main(int argc, char** argv) {
         .help("project ID to be used along with --key-path to identify the Linda Host queue")
         .scan<'i', int>()
         .default_value((int) 1);
+    parser.add_argument("remove", "-r", "--remove")
+        .help("forces removal of the queue if it already existed")
+        .default_value(false);
     parser.parse_args(argc, argv);
 
     TupleSpaceHost host;
-    host.init(parser.get<std::string>("key-path").c_str(), parser.get<int>("project-id"));
-    host.runServer();
+    try {
+        host.init(parser.get<std::string>("key-path").c_str(), parser.get<int>("project-id"),
+                parser.is_used("remove"));
+        host.runServer();
+    } catch(std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
 
     return 0;
 }

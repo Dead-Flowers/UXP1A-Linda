@@ -13,11 +13,12 @@
 #include "linda/consts.h"
 #include "linda/signals.h"
 
-static void hostSigHandler(int signum) {
+
+void hostSigHandler(int signum) {
     killRunServer(signum);
 };
 
-static void clientSigHandler(int signum) {
+void clientSigHandler(int signum) {
     spdlog::trace("Client received signal: {0}", signum);
 }
 
@@ -66,15 +67,15 @@ void TupleSpace::close(){
     }
 }
 
-std::optional<Tuple> TupleSpace::input(std::string tupleTemplate, int timeout) {
+std::optional<Tuple> TupleSpace::input(const std::string& tupleTemplate, int timeout) {
     return requestTuple(std::move(tupleTemplate), timeout, true);
 }
 
-std::optional<Tuple> TupleSpace::read(std::string tupleTemplate, int timeout) {
+std::optional<Tuple> TupleSpace::read(const std::string& tupleTemplate, int timeout) {
     return requestTuple(std::move(tupleTemplate), timeout, false);
 }
 
-std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int timeout, bool pop) {
+std::optional<Tuple> TupleSpace::requestTuple(const std::string& tupleTemplate, int timeout, bool pop) {
     if (tupleTemplate.size() > MAX_TUPLE_LENGTH) {
         throw LindaException(TOO_LONG_TUPLE_ERROR);
     }
@@ -102,7 +103,7 @@ std::optional<Tuple> TupleSpace::requestTuple(std::string tupleTemplate, int tim
     return std::nullopt;
 }
 
-void TupleSpace::output(std::string tuple) {
+void TupleSpace::output(const std::string& tuple, int timeout) {
     uint32_t reqId = ++_lastRequestId;
     TupleRequest request = {
             MessageType::Output,
@@ -117,7 +118,7 @@ void TupleSpace::output(std::string tuple) {
     }
 
     // catch any error or get acknowledgement
-    waitForResponse(reqId, 0);
+    waitForResponse(reqId, timeout);
 }
 
 std::optional<TupleResponse> TupleSpace::waitForResponse(uint32_t requestId, int timeout) {
@@ -151,7 +152,7 @@ std::optional<TupleResponse> TupleSpace::waitForResponse(uint32_t requestId, int
 }
 
 
-void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectId, int chmod) {
+void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectId, bool rm, int chmod) {
     auto key_file_path = DEFAULT_KEY_FILE_PATH;
     if (inputKeyFile) {
         key_file_path = inputKeyFile;
@@ -161,8 +162,14 @@ void TupleSpaceHost::init(const char* inputKeyFile, int inputProjectId, int chmo
     _logger->info("Initializing tuple space at {0} with project id {1}", inputKeyFile, inputProjectId);
 
     auto key = ftok(key_file_path, proj_id);
+    if (rm && (_mainQueueId = msgget(key, 0)) >= 0) {
+        _logger->info("Removing existing host queue");
+        if (msgctl(_mainQueueId, IPC_RMID, nullptr) < 0) {
+            _logger->warn("Unable to close host queue");
+        }
+    }
 
-    if((_mainQueueId = msgget(key, chmod | IPC_CREAT)) < 0) {
+    if((_mainQueueId = msgget(key, chmod | IPC_CREAT | IPC_EXCL)) < 0) {
         auto err = LindaSyscallException(errno);
         _logger->error("Unable to create host queue: {0}", err.what());
         throw err;
@@ -181,7 +188,8 @@ bool TupleSpaceHost::trySendResponse(const key_t responseQueueKey, const TupleRe
 
 void TupleSpaceHost::runServer() {
     killRunServer = [this](int signum){this->close();};
-    SignalWrapper sigWrapper(SIGINT, hostSigHandler);
+    SignalWrapper sigIntWrapper(SIGINT, hostSigHandler);
+    SignalWrapper sigTermWrapper(SIGTERM, hostSigHandler);
 
     _run = true;
     while(_run) {

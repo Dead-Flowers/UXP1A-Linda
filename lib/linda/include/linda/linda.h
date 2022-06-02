@@ -18,8 +18,9 @@
 #include "parser/patterns-parser.h"
 #include "spdlog/logger.h"
 #include "consts.h"
+#include "spdlog/details/os.h"
 
-static void clientSigHandler(int signum);
+void clientSigHandler(int signum);
 
 
 class TupleSpace {
@@ -28,9 +29,9 @@ public:
     ~TupleSpace();
     // timeout is in seconds, 0 - wait for sever response indefinitely
     void open(const char* keyPath, int projectId, int clientChmod = DEFAULT_CHMOD);
-    std::optional<Tuple> input(std::string tupleTemplate, int timeout);
-    std::optional<Tuple> read(std::string tupleTemplate, int timeout);
-    void output(std::string tuple);
+    std::optional<Tuple> input(const std::string& tupleTemplate, int timeout);
+    std::optional<Tuple> read(const std::string& tupleTemplate, int timeout);
+    void output(const std::string& tuple, int timeout = 0);
     void close();
 private:
     std::shared_ptr<spdlog::logger> _logger;
@@ -41,7 +42,7 @@ private:
     std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 
     std::optional<TupleResponse> waitForResponse(uint32_t requestId, int timeout);
-    std::optional<Tuple> requestTuple(std::string tupleTemplate, int timeout, bool pop);
+    std::optional<Tuple> requestTuple(const std::string& tupleTemplate, int timeout, bool pop);
 
 
     inline static std::atomic_flag LindaInitialized = ATOMIC_FLAG_INIT;
@@ -49,20 +50,20 @@ private:
         if (LindaInitialized.test_and_set())
             return;
         signal(SIGALRM, clientSigHandler);
-        std::srand(time(nullptr));
+        std::srand(spdlog::details::os::pid());
     }
 };
 
 
 static std::function<void(int)> killRunServer;
-static void hostSigHandler(int signum);
+void hostSigHandler(int signum);
 
 class TupleSpaceHost {
 public:
     TupleSpaceHost();
     ~TupleSpaceHost();
 
-    void init(const char* keyPath, int projectId, int chmod = DEFAULT_CHMOD);
+    void init(const char* keyPath, int projectId, bool rm = true, int chmod = DEFAULT_CHMOD);
     void runServer();
     void close();
     int spaceSize();
