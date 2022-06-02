@@ -18,6 +18,12 @@ namespace linda::modules {
     private:
         StringReader reader;
         char currentSign;
+        Token token;
+        bool tryBuildStringLiteral();
+        bool tryBuildNumberLiteral();
+        bool tryBuildType();
+        bool tryBuildSingleCharacterKeyword();
+        bool tryBuildMultipleCharacterOperator();
     };
 
 }

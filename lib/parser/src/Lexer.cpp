@@ -15,17 +15,26 @@ Lexer::Lexer(const std::string &input) : reader(StringReader(input)) {
 }
 
 Token Lexer::nextToken() {
-    Token token;
+    this->token = Token();
 
     while(std::isspace(currentSign)) {
         currentSign = this->reader.getNextCharacter();
     }
 
     if (currentSign == (char)-1) {
-        token.type = TokenType ::ETX;
+        token.type = TokenType::ETX;
         return token;
     }
 
+    if (tryBuildStringLiteral()) return token;
+    if (tryBuildNumberLiteral()) return token;
+    if (tryBuildType()) return token;
+    if (tryBuildSingleCharacterKeyword()) return token;
+    if (tryBuildMultipleCharacterOperator()) return token;
+    throw LexerParsingException("Unrecognized character");
+}
+
+bool Lexer::tryBuildStringLiteral() {
     if (currentSign == '\"') {
         currentSign = this->reader.getNextCharacter();
         std::string buffer;
@@ -41,8 +50,21 @@ Token Lexer::nextToken() {
         token.type = TokenType ::StringLiteral;
         this->currentSign = this->reader.getNextCharacter();
         token.value = buffer;
-        return token;
-    } else if (std::isdigit(currentSign)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Lexer::tryBuildNumberLiteral() {
+    if (std::isdigit(currentSign) || currentSign == '-') {
+
+        bool belowZero = false;
+        belowZero = currentSign == '-';
+        if (belowZero) {
+            currentSign = this->reader.getNextCharacter();
+            if (!std::isdigit(currentSign)) throw LexerParsingException("Could not find number after minus sign");
+        }
 
         long integerPart = 0;
 
@@ -63,13 +85,19 @@ Token Lexer::nextToken() {
             }
             float finalValue = integerPart + fractionPart / pow(10, decimalPlaces);
             token.type = TokenType::FloatLiteral;
-            token.value = finalValue;
-            return token;
+            token.value = belowZero ? -finalValue : finalValue;
+            return true;
         }
         token.type = TokenType::IntLiteral;
-        token.value = integerPart;
-        return token;
-    } else if (std::isalpha(currentSign)) {
+        token.value = belowZero ? -integerPart : integerPart;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Lexer::tryBuildType() {
+    if (std::isalpha(currentSign)) {
         std::string buffer;
         while (std::isalpha(currentSign)) {
             buffer.push_back(currentSign);
@@ -82,24 +110,40 @@ Token Lexer::nextToken() {
             throw LexerParsingException("Unrecognized data type");
         }
         token.value = buffer;
-        return token;
-    } else if (currentSign == ',') {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Lexer::tryBuildSingleCharacterKeyword() {
+    if (currentSign == ',') {
         token.type = TokenType::Comma;
         currentSign = this->reader.getNextCharacter();
-        return token;
+        return true;
     } else if (currentSign == ':') {
         token.type = TokenType::Colon;
         currentSign = this->reader.getNextCharacter();
-        return token;
+        return true;
     } else if (currentSign == '(') {
         token.type = TokenType::ParenthOpen;
         currentSign = this->reader.getNextCharacter();
-        return token;
+        return true;
     } else if (currentSign == ')') {
         token.type = TokenType::ParenthClose;
         currentSign = this->reader.getNextCharacter();
-        return token;
-    } else if (currentSign == '<' || currentSign == '>' || currentSign == '=') {
+        return true;
+    } else if (currentSign == '*') {
+        token.type = TokenType::Asterisk;
+        currentSign = this->reader.getNextCharacter();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool linda::modules::Lexer::tryBuildMultipleCharacterOperator() {
+    if (currentSign == '<' || currentSign == '>' || currentSign == '=') {
         char firstSign = currentSign;
         currentSign = this->reader.getNextCharacter();
         if (currentSign == '=') {
@@ -110,26 +154,21 @@ Token Lexer::nextToken() {
             else if (op == ">=") token.type = TokenType::GreaterOrEqualOp;
             else if (op == "==") token.type = TokenType::EqualOp;
             currentSign = this->reader.getNextCharacter();
-            return token;
+            return true;
         }
         if (firstSign == '<') token.type = TokenType::LessOp;
         else if (firstSign == '>') token.type = TokenType::GreaterOp;
         else {
             throw LexerParsingException("Unrecognized operator");
         }
-        return token;
-    } else if (currentSign == '*') {
-        token.type = TokenType::Asterisk;
-        currentSign = this->reader.getNextCharacter();
-        return token;
+        return true;
     } else if (currentSign == '!') {
         currentSign = this->reader.getNextCharacter();
         if (currentSign == '=') {
             token.type = TokenType::NotEqualOp;
-            return token;
+            currentSign = this->reader.getNextCharacter();
+            return true;
         }
         throw LexerParsingException("Unrecognized operator");
-    } else {
-        throw LexerParsingException("Unrecognized character");
     }
 }
