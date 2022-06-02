@@ -460,6 +460,7 @@ std::optional<TupleResponse> TupleSpaceHost::checkTuple(TupleRequest request) {
     std::optional<Tuple> tuple;
     auto response = TupleResponse();
     response.messageType = MessageType::Error;
+    response.requestId = request.requestId;
 
     try {
         tuple = this->parseTuple(request.tuple);
