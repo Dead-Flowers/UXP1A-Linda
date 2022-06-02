@@ -22,6 +22,8 @@ void clientSigHandler(int signum) {
 
 TupleSpace::TupleSpace() {
     _logger = getLogger("TupleSpace");
+    _logger->set_level(spdlog::level::trace);
+
     TupleSpace::init();
     _clientQueueId = _hostQueueId = 0;
     _clientQueueKey = 0;
@@ -142,6 +144,7 @@ std::optional<TupleResponse> TupleSpace::waitForResponse(uint32_t requestId, int
         _logger->error("Received error response for #{0}: {1}", response.requestId, response.tuple);
         throw LindaException(response.tuple);
     }
+    _logger->debug("Received valid response for #{0}: {1}", response.requestId, response.tuple);
     return std::make_optional(response);
 }
 
