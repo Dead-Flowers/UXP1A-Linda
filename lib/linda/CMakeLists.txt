@@ -5,7 +5,7 @@ file(GLOB LINDA_SOURCES
 file(GLOB LINDA_UNIT_TEST_SOURCES
         test/*.cpp)
 
-add_library(linda ${LINDA_SOURCES} include/linda/consts.h include/linda/signals.h src/signals.cpp)
+add_library(linda ${LINDA_SOURCES})
 
 FetchContent_Declare(spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
