@@ -7,7 +7,7 @@
 #include <string>
 #include <optional>
 
-const int MAX_TUPLE_LENGTH = 1024;
+
 
 using TupleItem = std::variant<int64_t, float, std::string>;
 using Tuple = std::vector<TupleItem>;

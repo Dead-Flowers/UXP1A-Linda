@@ -9,6 +9,8 @@ const char* MsgTypeToString(MessageType type) {
         case MessageType::Input: return "INPUT";
         case MessageType::Output: return "OUTPUT";
         case MessageType::Read: return "READ";
+        case MessageType::Error: return "ERROR";
+        default: return "UNKNOWN";
     }
 }
 

@@ -10,14 +10,9 @@ using TokenType = linda::modules::utils::TokenType;
 
 namespace linda::modules::utils
 {
-    class Token
-    {
-    public:
+    struct Token {
         TokenType type;
         std::variant<int64_t, float, std::string> value;
-
-        Token() = default;
-        ~Token() = default;
     };
 }
 

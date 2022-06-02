@@ -21,7 +21,8 @@ public:
 
 void *threadFunc(void *ptr) {
     runServer();
-};
+    return nullptr;
+}
 
 
 TestService::TestService(int projectId) : client(), host(){
@@ -31,7 +32,7 @@ TestService::TestService(int projectId) : client(), host(){
     this->host.init(this->fileName.c_str(), projectId);
 
     key_t key = ftok(this->fileName.c_str(), projectId);
-    this->client.open(key);
+    this->client.open(this->fileName.c_str(), projectId);
 
     runServer = [this](){this->host.runServer();};
     auto ret = pthread_create(&hostThread, NULL, threadFunc, NULL);
