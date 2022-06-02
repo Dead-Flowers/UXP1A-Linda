@@ -121,7 +121,7 @@ bool PatternParser::checkCombination(TupleDataType dataType, TupleOperator op, c
         return true;
     }
     auto& value = optionalValue.value();
-    if (dataType == TupleDataType::String && !holds_alternative<std::string>(value)) {
+    if (dataType == TupleDataType::String && !std::holds_alternative<std::string>(value)) {
         return false;
     }
     if (dataType == TupleDataType::Float && !std::holds_alternative<float>(value)) {

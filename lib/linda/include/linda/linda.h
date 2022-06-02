@@ -19,7 +19,7 @@
 #include "spdlog/logger.h"
 #include "consts.h"
 
-void clientSigHandler(int signum);
+static void clientSigHandler(int signum);
 
 
 class TupleSpace {
@@ -54,9 +54,8 @@ private:
 };
 
 
-static std::function<void(int)> closeProgram;
-
-void sigHandler(int signum);
+static std::function<void(int)> killRunServer;
+static void hostSigHandler(int signum);
 
 class TupleSpaceHost {
 public:
@@ -73,20 +72,24 @@ private:
     std::optional<TupleResponse> processRequest(TupleRequest);
     std::optional<TupleResponse> processReadOrInput(TupleRequest, bool pop);
     std::optional<TupleResponse> processOutput(TupleRequest);
+
     bool trySendResponse(key_t responseQueueKey, const TupleResponse& tupleResponse);
-    void insertTuple(const Tuple& tuple);
     bool tryMatchPendingRequests(const Tuple& tuple);
+
+    void insertTuple(const Tuple& tuple);
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
     void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
+
     bool compareValue(TupleItem, TupleItemPattern);
     std::optional<Tuple> parseTuple(const char*);
     std::vector<TupleItemPattern> parsePattern(const char*);
     bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
     std::optional<TupleResponse> checkTuple(TupleRequest);
     std::optional<TupleResponse> checkPattern(TupleRequest);
-    TupleSpaceContainer space;
-    int mainQueueId;
-    int run;
+
+    TupleSpaceContainer _space;
+    int _mainQueueId;
+    std::atomic_bool _run;
     std::shared_ptr<spdlog::logger> _logger;
     std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 };

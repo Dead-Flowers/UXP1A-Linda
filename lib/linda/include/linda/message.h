@@ -14,7 +14,7 @@ enum class MessageType : long {
     Error = 0x04,
 };
 
-const char* MsgTypeToString(MessageType type);
+const char* messageTypeToString(MessageType type);
 
 struct TupleRequest {
     MessageType messageType; // required filed `long mtype`

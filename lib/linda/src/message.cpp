@@ -4,7 +4,7 @@
 template<class... Ts> struct overloaded : Ts... { using Ts::operator()...; };
 template<class... Ts> overloaded(Ts...) -> overloaded<Ts...>;
 
-const char* MsgTypeToString(MessageType type) {
+const char* messageTypeToString(MessageType type) {
     switch (type) {
         case MessageType::Input: return "INPUT";
         case MessageType::Output: return "OUTPUT";
@@ -15,14 +15,14 @@ const char* MsgTypeToString(MessageType type) {
 }
 
 std::ostream& operator<< (std::ostream& os, const TupleRequest& req) {
-    os << "Type: " << MsgTypeToString(req.messageType) << " responseQueueKey: " << req.responseQueueKey
+    os << "Type: " << messageTypeToString(req.messageType) << " responseQueueKey: " << req.responseQueueKey
        << " requestId: " << req.requestId << " \n TUPLE: " << req.tuple;
     return  os;
 }
 
 std::ostream& operator<< (std::ostream& os, const TupleResponse& req) {
 
-    os << "Type: " << MsgTypeToString(req.messageType)
+    os << "Type: " << messageTypeToString(req.messageType)
        << " requestId: " << req.requestId << " \n TUPLE: ";
     for(auto c: req.tuple) {
         os << c;
@@ -31,7 +31,7 @@ std::ostream& operator<< (std::ostream& os, const TupleResponse& req) {
     return  os;
 }
 
-std::string TupleToString(const Tuple& tuple) {
+std::string tupleToString(const Tuple& tuple) {
     std::ostringstream ss;
     ss << "(";
     for(auto item: tuple) {

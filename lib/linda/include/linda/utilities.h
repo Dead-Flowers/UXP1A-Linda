@@ -23,26 +23,35 @@ key_t createQueueWithRandomKey(int flags, int* pMsgId = nullptr) {
     return key;
 }
 
-bool writeStringToCharArray(std::string str, char* pDest, size_t size) {
+bool writeStringToCharArray(const std::string& str, char* pDest, size_t size) {
     auto sizeWritten = str.copy(pDest, size);
     pDest[std::min(size - 1, sizeWritten)] = 0;
     return sizeWritten == str.length();
 }
 
 template <class Comparable>
-bool compareTuple(Comparable left, TupleOperator op, Comparable right) {
+bool compareTuple(const Comparable& left, TupleOperator op, const Comparable& right) {
     switch (op) {
         case TupleOperator::Equal: {return left == right;}
         case TupleOperator::Less: {return left < right;}
         case TupleOperator::LessEqual: {return left <= right;}
         case TupleOperator::Greater: {return left > right;}
         case TupleOperator::GreaterEqual: {return left >= right;}
-        default: {throw "bad operator";}
+        default: {throw std::invalid_argument("bad operator"); }
     }
 }
 
+TupleDataType getTupleDataType(const TupleItem& item) {
+    if (holds_alternative<float>(item)) return TupleDataType::Float;
+    if (holds_alternative<int64_t>(item)) return TupleDataType::Integer;
+    if (holds_alternative<std::string>(item)) return TupleDataType::String;
+    throw std::invalid_argument("Invalid item type");
+}
+
 template <class T>
-bool compareTupleToPattern(TupleItem item, TupleItemPattern pattern) {
+bool compareTupleToPattern(const TupleItem& item, const TupleItemPattern& pattern) {
+    if (getTupleDataType(item) != pattern.type)
+        return false;
     if (!pattern.value.has_value()) {
         return true; // in case the operand is a wildcard
     }
@@ -53,7 +62,7 @@ bool compareTupleToPattern(TupleItem item, TupleItemPattern pattern) {
 
 std::shared_ptr<spdlog::logger> getLogger(const std::string& name) {
     auto logger = spdlog::get(name);
-    return logger == nullptr ? spdlog::stdout_color_mt(name) : logger;
+    return logger == nullptr ? spdlog::stderr_color_mt(name) : logger;
 }
 
 #endif

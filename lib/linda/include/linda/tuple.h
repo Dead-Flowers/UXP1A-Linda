@@ -12,7 +12,7 @@
 using TupleItem = std::variant<int64_t, float, std::string>;
 using Tuple = std::vector<TupleItem>;
 
-std::string TupleToString(const Tuple& tuple);
+std::string tupleToString(const Tuple& tuple);
 
 // This has to have the same order as variant because of variant index() usage
 enum class TupleDataType {

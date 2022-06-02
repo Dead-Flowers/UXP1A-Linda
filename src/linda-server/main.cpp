@@ -1,8 +1,12 @@
 #include <argparse/argparse.hpp>
-
+#include "spdlog/cfg/env.h"
 #include "linda/linda.h"
+#include "spdlog/spdlog.h"
 
 int main(int argc, char** argv) {
+    spdlog::set_level(spdlog::level::level_enum::info);
+    spdlog::cfg::load_env_levels();
+
     auto parser = argparse::ArgumentParser("linda-server");
     parser.add_description("Hosts the global Linda tuple space.");
     parser.add_argument("-k", "--key-path")
