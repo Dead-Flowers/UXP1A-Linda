@@ -1,11 +1,12 @@
 
-#include "parser/Lexer.h"
+#include "parser/lexer.h"
 
 #include <cctype>
 #include <algorithm>
 #include <cmath>
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "parser/exceptions.h"
+#include "parser/consts.h"
 
 using Lexer = linda::modules::Lexer;
 namespace utils = linda::modules::utils;
@@ -73,7 +74,7 @@ bool Lexer::tryBuildNumberLiteral() {
         currentSign = this->reader.getNextCharacter();
         digitCount++;
         while(std::isdigit(currentSign)) {
-            if (digitCount >= 18) {
+            if (digitCount >= LONG_MAX_DIGIT_COUNT) {
                 throw LexerParsingException("Number overflow");
             }
             integerPart = (integerPart * 10) + (currentSign - '0');
@@ -85,7 +86,7 @@ bool Lexer::tryBuildNumberLiteral() {
             int decimalPlaces = 0;
             currentSign = this->reader.getNextCharacter();
             while (std::isdigit(currentSign)) {
-                if (decimalPlaces > 6) {
+                if (decimalPlaces > FLOAT_DECIMAL_PRECISION) {
                     throw LexerParsingException("Decimal part overflow");
                 }
                 fractionPart = (fractionPart * 10) + (currentSign - '0');

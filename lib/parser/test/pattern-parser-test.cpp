@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
-#include "parser/Lexer.h"
-#include "parser/PatternsParser.h"
+#include "parser/lexer.h"
+#include "parser/patterns-parser.h"
 #include "linda/tuple.h"
 #include "parser/exceptions.h"
 

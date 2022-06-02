@@ -1,0 +1,13 @@
+
+#ifndef LINDA_CONSTS_H
+#define LINDA_CONSTS_H
+
+#ifndef LONG_MAX_DIGIT_COUNT
+#define LONG_MAX_DIGIT_COUNT 18
+#endif
+
+#ifndef FLOAT_DECIMAL_PRECISION
+#define FLOAT_DECIMAL_PRECISION 6
+#endif
+
+#endif //LINDA_CONSTS_H

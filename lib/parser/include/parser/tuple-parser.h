@@ -1,9 +1,9 @@
 
-#ifndef LINDA_TUPLEPARSER_H
-#define LINDA_TUPLEPARSER_H
+#ifndef LINDA_TUPLE_PARSER_H
+#define LINDA_TUPLE_PARSER_H
 
 #include "linda/tuple.h"
-#include "Lexer.h"
+#include "lexer.h"
 
 namespace linda::modules {
     class TupleParser {
@@ -21,4 +21,4 @@ namespace linda::modules {
     };
 }
 
-#endif //LINDA_TUPLEPARSER_H
+#endif //LINDA_TUPLE_PARSER_H
