@@ -2,8 +2,8 @@
 
 
 #include <string>
-#include "Token.h"
-#include "StringReader.h"
+#include "token.h"
+#include "string-reader.h"
 #include "spdlog/logger.h"
 
 using Token = linda::modules::utils::Token;

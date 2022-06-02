@@ -1,5 +1,5 @@
 
-#include "parser/StringReader.h"
+#include "parser/string-reader.h"
 
 using StringReader = linda::modules::StringReader;
 

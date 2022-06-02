@@ -8,24 +8,25 @@ namespace linda::modules::utils
 {
     enum class TokenType: unsigned int
     {
-        ParenthOpen         = 0,
-        ParenthClose        = 1,
-        IntLiteral          = 2,
-        FloatLiteral        = 3,
-        StringLiteral       = 4,
-        IntType             = 5,
-        FloatType           = 6,
-        StringType          = 7,
-        Asterisk            = 8,
-        EqualOp             = 9,
-        NotEqualOp          = 10,
-        GreaterOp           = 11,
-        GreaterOrEqualOp    = 12,
-        LessOp              = 13,
-        LessOrEqualOp       = 14,
-        Comma               = 15,
-        Colon               = 16,
-        ETX                 = 17
+        Unknown             = 0,
+        ParenthOpen         = 1,
+        ParenthClose        = 2,
+        IntLiteral          = 3,
+        FloatLiteral        = 4,
+        StringLiteral       = 5,
+        IntType             = 6,
+        FloatType           = 7,
+        StringType          = 8,
+        Asterisk            = 9,
+        EqualOp             = 10,
+        NotEqualOp          = 11,
+        GreaterOp           = 12,
+        GreaterOrEqualOp    = 13,
+        LessOp              = 14,
+        LessOrEqualOp       = 15,
+        Comma               = 16,
+        Colon               = 17,
+        ETX                 = 18
     };
 
     const std::unordered_map<unsigned int, std::string> tokenTypeNames = {

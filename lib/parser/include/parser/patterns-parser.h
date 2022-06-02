@@ -4,7 +4,7 @@
 
 
 #include "linda/tuple.h"
-#include "Lexer.h"
+#include "lexer.h"
 
 namespace linda::modules {
     class PatternParser {

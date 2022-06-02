@@ -4,7 +4,7 @@
 #include <string>
 #include <variant>
 
-#include "TokenType.h"
+#include "token-type.h"
 
 using TokenType = linda::modules::utils::TokenType;
 

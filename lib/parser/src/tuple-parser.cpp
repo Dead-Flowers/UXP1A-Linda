@@ -1,4 +1,4 @@
-#include "parser/TupleParser.h"
+#include "parser/tuple-parser.h"
 #include "parser/exceptions.h"
 
 using TupleParser = linda::modules::TupleParser;

@@ -1,5 +1,5 @@
 
-#include "parser/PatternsParser.h"
+#include "parser/patterns-parser.h"
 #include "parser/exceptions.h"
 
 using PatternParser = linda::modules::PatternParser;

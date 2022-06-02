@@ -1,7 +1,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest/doctest.h"
-#include "parser/Lexer.h"
-#include "parser/PatternsParser.h"
+#include "parser/lexer.h"
+#include "parser/patterns-parser.h"
 #include "linda/tuple.h"
 #include "parser/exceptions.h"
 
@@ -214,4 +214,20 @@ TEST_CASE("Test parsing multiple patterns") {
     CHECK(res[2].type == TupleDataType::String);
     CHECK(res[2].op == TupleOperator::Equal);
     CHECK(res[2].value == std::nullopt);
+}
+
+TEST_CASE("Test parsing overflow float pattern without asterisks") {
+    auto patternInput = "(float:<5.5235345345345)";
+    Lexer lexer(patternInput);
+    PatternParser p(lexer);
+
+    CHECK_THROWS_AS(p.parse(), LexerParsingException);
+}
+
+TEST_CASE("Test parsing overflow integer pattern without asterisks") {
+    auto patternInput = "(integer:3454564523549876283463247583767234587247528937645982475)";
+    Lexer lexer(patternInput);
+    PatternParser p(lexer);
+
+    CHECK_THROWS_AS(p.parse(), LexerParsingException);
 }
