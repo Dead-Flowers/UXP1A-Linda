@@ -13,11 +13,12 @@
 #include <iostream>
 #include <cstring>
 #include <memory>
-#include "parser/TupleParser.h"
-#include "parser/Lexer.h"
-#include "parser/PatternsParser.h"
+#include "parser/tuple-parser.h"
+#include "parser/lexer.h"
+#include "parser/patterns-parser.h"
 #include "spdlog/logger.h"
 #include "consts.h"
+#include "spdlog/details/os.h"
 
 void clientSigHandler(int signum);
 
@@ -28,9 +29,9 @@ public:
     ~TupleSpace();
     // timeout is in seconds, 0 - wait for sever response indefinitely
     void open(const char* keyPath, int projectId, int clientChmod = DEFAULT_CHMOD);
-    std::optional<Tuple> input(std::string tupleTemplate, int timeout);
-    std::optional<Tuple> read(std::string tupleTemplate, int timeout);
-    void output(std::string tuple);
+    std::optional<Tuple> input(const std::string& tupleTemplate, int timeout);
+    std::optional<Tuple> read(const std::string& tupleTemplate, int timeout);
+    void output(const std::string& tuple, int timeout = 0);
     void close();
 private:
     std::shared_ptr<spdlog::logger> _logger;
@@ -41,7 +42,7 @@ private:
     std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 
     std::optional<TupleResponse> waitForResponse(uint32_t requestId, int timeout);
-    std::optional<Tuple> requestTuple(std::string tupleTemplate, int timeout, bool pop);
+    std::optional<Tuple> requestTuple(const std::string& tupleTemplate, int timeout, bool pop);
 
 
     inline static std::atomic_flag LindaInitialized = ATOMIC_FLAG_INIT;
@@ -49,21 +50,20 @@ private:
         if (LindaInitialized.test_and_set())
             return;
         signal(SIGALRM, clientSigHandler);
-        std::srand(time(nullptr));
+        std::srand(spdlog::details::os::pid());
     }
 };
 
 
-static std::function<void(int)> closeProgram;
-
-void sigHandler(int signum);
+static std::function<void(int)> killRunServer;
+void hostSigHandler(int signum);
 
 class TupleSpaceHost {
 public:
     TupleSpaceHost();
     ~TupleSpaceHost();
 
-    void init(const char* keyPath, int projectId, int chmod = DEFAULT_CHMOD);
+    void init(const char* keyPath, int projectId, bool rm = true, int chmod = DEFAULT_CHMOD);
     void runServer();
     void close();
     int spaceSize();
@@ -73,20 +73,24 @@ private:
     std::optional<TupleResponse> processRequest(TupleRequest);
     std::optional<TupleResponse> processReadOrInput(TupleRequest, bool pop);
     std::optional<TupleResponse> processOutput(TupleRequest);
+
     bool trySendResponse(key_t responseQueueKey, const TupleResponse& tupleResponse);
-    void insertTuple(const Tuple& tuple);
     bool tryMatchPendingRequests(const Tuple& tuple);
+
+    void insertTuple(const Tuple& tuple);
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
     void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
+
     bool compareValue(TupleItem, TupleItemPattern);
     std::optional<Tuple> parseTuple(const char*);
     std::vector<TupleItemPattern> parsePattern(const char*);
     bool patternMatchesTuple(const TuplePattern& pattern, const Tuple& tuple);
     std::optional<TupleResponse> checkTuple(TupleRequest);
     std::optional<TupleResponse> checkPattern(TupleRequest);
-    TupleSpaceContainer space;
-    int mainQueueId;
-    int run;
+
+    TupleSpaceContainer _space;
+    int _mainQueueId;
+    std::atomic_bool _run;
     std::shared_ptr<spdlog::logger> _logger;
     std::atomic_flag _closed = ATOMIC_FLAG_INIT;
 };
