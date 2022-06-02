@@ -68,10 +68,16 @@ bool Lexer::tryBuildNumberLiteral() {
 
         long integerPart = 0;
 
+        int digitCount = 0;
         integerPart += (currentSign - '0');
         currentSign = this->reader.getNextCharacter();
+        digitCount++;
         while(std::isdigit(currentSign)) {
+            if (digitCount >= 18) {
+                throw LexerParsingException("Number overflow");
+            }
             integerPart = (integerPart * 10) + (currentSign - '0');
+            digitCount++;
             currentSign = this->reader.getNextCharacter();
         }
         if (currentSign == '.') {
@@ -79,6 +85,9 @@ bool Lexer::tryBuildNumberLiteral() {
             int decimalPlaces = 0;
             currentSign = this->reader.getNextCharacter();
             while (std::isdigit(currentSign)) {
+                if (decimalPlaces > 6) {
+                    throw LexerParsingException("Decimal part overflow");
+                }
                 fractionPart = (fractionPart * 10) + (currentSign - '0');
                 decimalPlaces++;
                 currentSign = this->reader.getNextCharacter();
