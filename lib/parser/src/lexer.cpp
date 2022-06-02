@@ -17,6 +17,7 @@ Lexer::Lexer(const std::string &input) : reader(StringReader(input)) {
 
 Token Lexer::nextToken() {
     this->token = Token();
+    token.type = TokenType::Unknown;
 
     while(std::isspace(currentSign)) {
         currentSign = this->reader.getNextCharacter();
