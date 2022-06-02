@@ -4,8 +4,8 @@ SCRIPT=`realpath $0`
 SCRIPTPATH=`dirname $SCRIPT`
 
 BASE_PATH="$SCRIPTPATH/../cmake-build-debug/src"
-CLIENT_PATH="$BASE_PATH/client"
-HOST_PATH="$BASE_PATH/server"
+CLIENT_PATH="$BASE_PATH/linda-client"
+HOST_PATH="$BASE_PATH/linda-server"
 
 runTest () {
   echo "Running test $1"
@@ -14,7 +14,7 @@ runTest () {
   while (( "$#" >= 2 )); do
     if [[ -f "$2.expected" ]]
     then
-      diff -s "$2.expected" "$2.out" || exit 1
+      diff -s "$2.expected" "$2.out" || (echo "test failed" && exit 1)
     else
       echo "Creating expected file"
       cp "$2.out" "$2.expected"

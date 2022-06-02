@@ -75,12 +75,10 @@ TEST_SUITE("TEST") {
         sleep(1);
         CHECK(service.host.spaceSize() == 5);
         CHECK(service.host.contains(service.parsePattern("(integer:123, float:>456, string:\"unix\")")));
-        std::cout << "end1";
 
     }
 
     TEST_CASE("test read") {
-        std::cout << "start2";
         service.host.reset();
         service.client.output("(123, 456.789, \"unix\")");
         service.client.output("(420, 69.789, \"test\")");
@@ -88,7 +86,6 @@ TEST_SUITE("TEST") {
         service.client.output("(123, 69.789, \"unixx\")");
         service.client.output("(124, 69.789, \"unixx\")");
         sleep(1);
-        std::cout << "end";
         CHECK(service.host.spaceSize() == 5);
         auto t = service.client.read("(integer:123, float:>456.0, string:\"unix\")", 300);
         CHECK(service.host.spaceSize() == 5);
@@ -96,7 +93,6 @@ TEST_SUITE("TEST") {
         auto b = t.value() == service.parseTuple("(123, 456.789, \"unix\")");
         CHECK(b);
         CHECK(service.host.contains(service.parsePattern("(integer:123, float:>456, string:\"unix\")")));
-        std::cout << "end2";
 
     }
 
