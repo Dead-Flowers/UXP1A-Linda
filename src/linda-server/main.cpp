@@ -3,7 +3,8 @@
 #include "linda/linda.h"
 #include "spdlog/spdlog.h"
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv)
+{
     spdlog::set_level(spdlog::level::level_enum::info);
     spdlog::cfg::load_env_levels();
 
@@ -15,18 +16,30 @@ int main(int argc, char** argv) {
     parser.add_argument("-p", "--project-id")
         .help("project ID to be used along with --key-path to identify the Linda Host queue")
         .scan<'i', int>()
-        .default_value((int) 1);
-    parser.add_argument("remove", "-r", "--remove")
+        .default_value((int)1);
+    parser.add_argument("-r", "--remove")
         .help("forces removal of the queue if it already existed")
         .default_value(false);
-    parser.parse_args(argc, argv);
+
+    try
+    {
+        parser.parse_args(argc, argv);
+    }
+    catch (std::exception &e)
+    {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
+    }
 
     TupleSpaceHost host;
-    try {
+    try
+    {
         host.init(parser.get<std::string>("key-path").c_str(), parser.get<int>("project-id"),
-                parser.is_used("remove"));
+                  parser.is_used("remove"));
         host.runServer();
-    } catch(std::exception& e) {
+    }
+    catch (std::exception &e)
+    {
         std::cerr << "Error: " << e.what() << std::endl;
         return 1;
     }

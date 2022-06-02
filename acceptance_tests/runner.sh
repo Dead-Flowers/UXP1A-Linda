@@ -9,7 +9,7 @@ nohup sh -c "$HOST_PATH" & HOST_PID="$!" > /dev/null
 
 while (( "$#" >= 2 )); do
     truncate "$2.out" --size 0
-    nohup bash -c 'echo "dupsko"
+    nohup bash -c '
     while read line; do
       echo "$line" | xargs bash -c "$0" >> "$1"
       echo "Exit code: $?" >> "$1"
