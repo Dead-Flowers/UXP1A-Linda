@@ -28,3 +28,6 @@ add_executable(tupleParserUnitTests ${TUPLE_PARSER_UNIT_TEST_SOURCES} test/tuple
 add_executable(patternParserUnitTests ${PATTERN_PARSER_UNIT_TEST_SOURCES} test/pattern-parser-test.cpp)
 target_link_libraries(tupleParserUnitTests parser doctest)
 target_link_libraries(patternParserUnitTests parser doctest)
+
+include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
+doctest_discover_tests(tupleParserUnitTests patternParserUnitTests)

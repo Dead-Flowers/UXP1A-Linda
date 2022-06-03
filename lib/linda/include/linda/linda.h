@@ -79,7 +79,7 @@ private:
 
     void insertTuple(const Tuple& tuple);
     std::optional<Tuple> searchSpace(const TuplePattern& tuplePattern, bool pop);
-    void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern);
+    void insertPendingRequest(uint32_t requestId, key_t responseQueueKey, const TuplePattern& tuplePattern, bool pop);
 
     bool compareValue(TupleItem, TupleItemPattern);
     std::optional<Tuple> parseTuple(const char*);

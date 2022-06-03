@@ -104,6 +104,10 @@ std::optional<Tuple> TupleSpace::requestTuple(const std::string& tupleTemplate, 
 }
 
 void TupleSpace::output(const std::string& tuple, int timeout) {
+    if (tuple.size() > MAX_TUPLE_LENGTH) {
+        throw LindaException(TOO_LONG_TUPLE_ERROR);
+    }
+
     uint32_t reqId = ++_lastRequestId;
     TupleRequest request = {
             MessageType::Output,
@@ -280,7 +284,7 @@ std::optional<TupleResponse> TupleSpaceHost::processReadOrInput(TupleRequest req
 
     auto tuple = this->searchSpace(patterns, pop);
     if (!tuple.has_value()) {
-        this->insertPendingRequest(request.requestId, request.responseQueueKey, patterns);
+        this->insertPendingRequest(request.requestId, request.responseQueueKey, patterns, pop);
         return std::nullopt;
     }
 
@@ -334,11 +338,12 @@ void TupleSpaceHost::insertTuple(const Tuple& tuple) {
 }
 
 void TupleSpaceHost::insertPendingRequest(uint32_t requestId, key_t responseQueueKey,
-                                          const TuplePattern& tuplePattern) {
+                                          const TuplePattern& tuplePattern, bool pop) {
     auto req = PendingTupleRequest{};
     req.requestId = requestId;
     req.responseQueueKey = responseQueueKey;
     req.itemPatterns = tuplePattern;
+    req.pop = pop;
     _space.pendingRequests.push_back(req);
 }
 
@@ -414,6 +419,7 @@ bool TupleSpaceHost::tryMatchPendingRequests(const Tuple& tuple) {
             *iter = _space.pendingRequests.back();
             _space.pendingRequests.pop_back();
             if (iter->pop) {
+                _logger->debug("stopping further iteration");
                 return true;
             }
             continue; // don't advance iter

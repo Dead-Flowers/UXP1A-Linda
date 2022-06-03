@@ -1,0 +1,2 @@
+-t 1 output "(123.5)"
+-t 1 read "(float:>5)"

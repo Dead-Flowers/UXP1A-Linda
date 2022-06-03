@@ -136,12 +136,12 @@ TEST_SUITE("TEST") {
         CHECK_THROWS(service.client.output("fafaffafaffa "));
     }
 
-    TEST_CASE("random chines letters") {
+    TEST_CASE("random chinese letters") {
         service.host.reset();
         CHECK_THROWS(service.client.output("象形字象形字象形字象形字象形字象形字象形字象形字"));
     }
 
-    TEST_CASE("chines letters in tuple") {
+    TEST_CASE("chinese letters in tuple") {
         service.host.reset();
         service.client.output("(123, \"象形字象形字象形字象形字象形字象形字象形字象形字\")");
         CHECK(service.host.spaceSize() == 1);
